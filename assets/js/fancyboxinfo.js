@@ -26,7 +26,9 @@ function div_show(ID) {
 	            document.getElementById("desigpopup").innerHTML = designation;
 	            document.getElementById("orgpopup").innerHTML = organsation;
 	            document.getElementById("biopopup").innerHTML = description;
-	            document.getElementById("urlpopup").innerHTML = '<img src=\''+logos+'\'>';
+	            if (logos != false){
+					 document.getElementById("urlpopup").innerHTML = '<img src=\''+logos+'\'>';
+				}
 	         
 	            
         	}
