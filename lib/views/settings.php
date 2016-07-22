@@ -200,9 +200,9 @@
         <p><?php _e('layout = 1,2,3,isotope,Carousel', SPEAKER_SLUG );?></p></br></br>
 
         <h3>For Specific Speaker or Event:</h3>
-        <p>[speaker col="2" speaker="Thomos" orderby="title" order="ASC" layout="1"]</p><br>
+        <p>[speakerinfo col="2" speaker="Thomos" orderby="title" order="ASC" layout="1"]</p><br>
         <p><?php _e('col = The number of column you want to create (1,2,3,4)', SPEAKER_SLUG );?></p>
-        <p><?php _e('speaker = The nameof the speaker, you want to display | event= All speakers from specific event', SPEAKER_SLUG );?></p>
+        <p><?php _e('speaker = The name of the speaker, you want to display | event= All speakers from specific event', SPEAKER_SLUG );?></p>
         <p><?php _e('layout = 1,2,3,isotope', SPEAKER_SLUG );?></p>
     </div>
 
