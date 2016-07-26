@@ -65,6 +65,10 @@
     float: left;
     width: 50%;
 }
+.tlp-content-holder .tch-left {
+    float: left;
+    width: 100%;
+}
 .tch-right {
     float: right;
     width: 45%;
@@ -101,22 +105,35 @@
 #meta-image-button {
     margin-top: 5px;
 }
+#tlp-settings #text_size{
+    margin-right: 12px;
+      padding: 3px 0 2px 3px
+}
+input#text_align{
+    margin-right: 10px;
+    padding-right: 0;
+}
 .settingCss{margin-top: 10px;}
 
 .settingCss span:nth-child(1),
 .settingCss span:nth-child(2),
-.settingCss span:nth-child(3){
-    width: 105px;
-    display: block;
-    float: left;
+.settingCss span:nth-child(3),.settingCss span:nth-child(4){
+    width: auto;
     margin-bottom: 5px;
     text-align: center;
+    display: inline-block;
+    margin-right: 10px;
+}
+.wp-color-result{
+    margin-right: 22px;
 }
 .settingCss span:nth-child(2){
 padding-left: 3px;
 }
-.wp-admin select{
-    padding: 6px;
+
+.wp-admin select {
+    margin-right: 11px;
+    padding: 4px 13px;
 }
 #adminmenu li.menu-top:hover .wp-menu-image img, #adminmenu li.wp-has-current-submenu .wp-menu-image img, #adminmenu .wp-menu-image img{
     width: 20px!important;

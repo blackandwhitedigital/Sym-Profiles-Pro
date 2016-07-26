@@ -358,7 +358,7 @@ if(!class_exists('SpeakershortCode')):
 					$html .= '<div class="body"><div class= "block"><h3 class="name text-color heading-color"><a title="' . $title . '"  class="modal-popup" href="'. $pLink.'">' . $title . '</a></h3></div>';
 					}
 					if($designation){
-						$html .= '<div class="designation setting-org">'.$designation.'</div>';
+						$html .= '<div class="designation setting-desg">'.$designation.'</div>';
 					}
 					if($organisation){
 						$html .= '<div class="organisation setting-org">'.$organisation.'</div>';
@@ -438,7 +438,7 @@ if(!class_exists('SpeakershortCode')):
 					}else{
                         $html .= '<h3 class="tlp-title heading-color"><a title="'.$title.'" href="'.$pLink.'">'.$title.'</a></h3>';
 					}
-					$html .='<div class="designation setting-org">'.$designation.'</div>';
+					$html .='<div class="designation setting-desg">'.$designation.'</div>';
 					$html .='<div class="organisation setting-org">'.$organisation.'</div>';
 						if($speaker_event){
 							$html .= '<div class="designation sett-event"><a class="setting-org" href="' . $speakerevent_link . '" class ="text-color">'.$speaker_event.'</a></div>';
@@ -507,7 +507,7 @@ if(!class_exists('SpeakershortCode')):
 					}else{
                         $html .= '<h3 class="tlp-title heading-color"><a title="'.$title.'" href="'.$pLink.'">'.$title.'</a></h3>';
 					}
-					$html .='<div class="designation setting-org">'.$designation.'</div>';
+					$html .='<div class="designation setting-desg">'.$designation.'</div>';
 					$html .='<div class="organisation setting-org">'.$organisation.'</div>';
 						if($speaker_event){
 							$html .= '<div class="designation sett-event"><a class="setting-org" href="' . $speakerevent_link . '" class ="text-color">'.$speaker_event.'</a></div>';
@@ -572,7 +572,7 @@ if(!class_exists('SpeakershortCode')):
 							$html .= '<h3 class="name heading-color"><a title="' . $title . '" href="' . $pLink . '">' . $title . '</a></h3>';
 						}
 						if($designation){
-							$html .= '<div class="designation setting-org">'.$designation.'</div>';
+							$html .= '<div class="designation setting-desg">'.$designation.'</div>';
 						}
 						if($organisation){
 							$html .= '<div class="organisation setting-org">'.$organisation.'</div>';
@@ -617,12 +617,12 @@ if(!class_exists('SpeakershortCode')):
 				$html .='<div class="'. $image_area.' round-img lay-three-img">';
 					$html .='<img class="img-responsive" src="'.$imgSrc.'" alt="'.$title.'"/>';
 					if($settings['link_detail_page'] == 'no') {
-						$html .= '<h3 class="tlp-title text-color">'.$title.'</h3>';
+						$html .= '<h3 class="tlp-title heading-color">'.$title.'</h3>';
 					}else{
-                        $html .= '<h3 class="tlp-title text-color lay3-title"><a title="'.$title.'" href="'.$pLink.'">'.$title.'</a></h3>';
+                        $html .= '<h3 class="tlp-title heading-color lay3-title"><a title="'.$title.'" href="'.$pLink.'">'.$title.'</a></h3>';
 					}
-					$html .='<div class="designation text-color">'.$designation.'</div>';
-					$html .='<div class="organisation text-color">'.$organisation.'</div>';
+					$html .='<div class="designation setting-desg">'.$designation.'</div>';
+					$html .='<div class="organisation setting-org">'.$organisation.'</div>';
 				$html .= '</div>';
 			$html .= '</li>';
 

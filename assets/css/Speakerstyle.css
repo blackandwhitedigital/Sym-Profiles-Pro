@@ -539,8 +539,8 @@ div#popupContact {
 .popup-content {
     max-width:500px;
     min-width:250px;
-    border:2px solid gray;
-    border-radius:10px;
+    border:0 none;
+    border-radius:0px;
     font-family:raleway;
     text-align: center;
 }

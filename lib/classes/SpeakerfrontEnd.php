@@ -29,6 +29,14 @@ if( !class_exists( 'SpeakerfrontEnd' ) ) :
             $fw = (isset($settings['textstylehead']) ? ($settings['textstylehead'] ? $settings['textstylehead'] : 'normal' ) : 'normal');
             $fs = (isset($settings['textstyleorg']) ? ($settings['textstyleorg'] ? $settings['textstyleorg'] : 'normal' ) : 'normal');
             $textd = (isset($settings['textstyledesc']) ? ($settings['textstyledesc'] ? $settings['textstyledesc'] : 'normal' ) : 'normal');
+            /* designation setting layout1*/
+            $dc = (isset($settings['desg_color']) ? ($settings['desg_color'] ? $settings['desg_color'] : '#333' ) : '#333');
+            $ds = (isset($settings['desg_size']) ? ($settings['desg_size'] ? $settings['desg_size'] : '15px' ) : '15px');
+            $da = (isset($settings['desg_align']) ? ($settings['desg_align'] ? $settings['desg_align'] : 'none' ) : 'none');
+            $ddd = (isset($settings['desg_display']) ? ($settings['desg_display'] ? $settings['desg_display'] : 'show' ) : 'show');
+            if ($ddd =='hide'){
+                $ddis = 'none';
+            }
             /* organisation setting layout1*/
             $oc = (isset($settings['org_color']) ? ($settings['org_color'] ? $settings['org_color'] : '#333' ) : '#333');
             $os = (isset($settings['org_size']) ? ($settings['org_size'] ? $settings['org_size'] : '15px' ) : '15px');
@@ -66,6 +74,17 @@ if( !class_exists( 'SpeakerfrontEnd' ) ) :
             $html .= 'text-decoration: '.$fw.'!important';
             $html .= '}';
             /* title setting layout1 */
+            /* designation setting layout1*/
+            $html .='.setting-desg{';
+            $html .= 'color: '.$dc.'!important;';
+            $html .= 'font-size: '.$ds.'!important;';
+            $html .= 'text-align: '.$da.'!important;';
+            $html .= 'display: '.$ddis.'!important;';
+            $html .= 'font-weight: '.$fd.'!important;';
+            $html .= 'font-style: '.$fd.'!important;';
+            $html .= 'text-decoration: '.$fd.'!important';
+            $html .= '}';
+            /* designation setting layout1 */
             /* organisation setting layout1*/
             $html .='.setting-org{';
             $html .= 'color: '.$oc.'!important;';

@@ -73,12 +73,14 @@
                         <th scope="row"><label for="text-color"><?php _e('Text Color',SPEAKER_SLUG);?></label></th>
                         <td class="">
                             <div class="settingCss">
-                                <span>Speaker Title</span>
-                                <span>Organisation</span>
-                                <span>Description</span>
+                                <span>Speaker Name</span>
+                                <span>Speaker Role</span>
+                                <span>Speaker Organisation</span>
+                                <span>Speaker Description</span>
                             </div>
                             <span style="display:block;">
                                 <input name="heading_color" id="text_color" type="text" value="<?php echo (isset($settings['heading_color']) ? ($settings['heading_color'] ? $settings['heading_color'] : '#000') : '#000'); ?>" class="tlp-color">
+                                <input name="desg_color" id="text_color" type="text" value="<?php echo (isset($settings['desg_color']) ? ($settings['desg_color'] ? $settings['desg_color'] : '#333') : '#333'); ?>" class="tlp-color">
                                 <input name="org_color" id="text_color" type="text" value="<?php echo (isset($settings['org_color']) ? ($settings['org_color'] ? $settings['org_color'] : '#333') : '#333'); ?>" class="tlp-color">
                                 <input name="text_color" id="text_color" type="text" value="<?php echo (isset($settings['text_color']) ? ($settings['text_color'] ? $settings['text_color'] : '#000') : '#000'); ?>" class="tlp-color">
                             </span>
@@ -89,6 +91,7 @@
                         <td>
                             <span class="asmin-color-three" style="display:block;margin-bottom:8px;">
                                 <input name="heading_size" id="text_size" size="10" type="text" value="<?php echo (isset($settings['heading_size']) ? ($settings['heading_size'] ? $settings['heading_size'] : '20px') : '20px'); ?>">
+                                 <input name="desg_size" id="text_size" size="10" type="text" value="<?php echo (isset($settings['desg_size']) ? ($settings['desg_size'] ? $settings['desg_size'] : '15px') : '15px'); ?>">
                                 <input name="org_size" id="text_size" size="10" type="text" value="<?php echo (isset($settings['org_size']) ? ($settings['org_size'] ? $settings['org_size'] : '15px') : '15px'); ?>">
                                 <input name="text_size" id="text_size" size="10" type="text" value="<?php echo (isset($settings['text_size']) ? ($settings['text_size'] ? $settings['text_size'] : '15px') : '15px'); ?>">
                             </span>
@@ -99,6 +102,7 @@
                         <td>
                             <span class="asmin-color-three" style="display:block;">
                                 <input name="heading_align" size="10" id="text_align" type="text" value="<?php echo (isset($settings['heading_align']) ? ($settings['heading_align'] ? $settings['heading_align'] : 'none') : 'none'); ?>">
+                                <input name="desg_align" id="text_align" size="10" type="text" value="<?php echo (isset($settings['desg_align']) ? ($settings['desg_align'] ? $settings['desg_align'] : 'none') : 'none'); ?>">
                                 <input name="org_align" id="text_align" size="10" type="text" value="<?php echo (isset($settings['org_align']) ? ($settings['org_align'] ? $settings['org_align'] : 'none') : 'none'); ?>">
                                 <input name="text_align" id="text_align" size="10" type="text" value="<?php echo (isset($settings['text_align']) ? ($settings['text_align'] ? $settings['text_align'] : 'none') : 'none'); ?>">
                             </span>  
@@ -110,6 +114,13 @@
                             <span class="asmin-color-three" style="display:block;">
                                  <select name="textstylehead" id="textstylehead" type="text"
                                         value="<?php echo(isset($settings['textstylehead']) ? ($settings['textstylehead'] ? $settings['textstylehead'] : 'normal') : 'normal'); ?>">
+                                    <option value="normal">select</option>
+                                    <option value="bold">bold</option>
+                                    <option value="italic">italic</option>
+                                    <option value="underline">underline</option>
+                                </select>
+                                <select name="textstyledesg" id="textstyledesg" type="text"
+                                        value="<?php echo(isset($settings['textstyledesg']) ? ($settings['textstyledesg'] ? $settings['textstyledesg'] : 'normal') : 'normal'); ?>">
                                     <option value="normal">select</option>
                                     <option value="bold">bold</option>
                                     <option value="italic">italic</option>
@@ -139,6 +150,7 @@
                         <td class="">
                              <span style="display:block;">
                                 <input name="heading_display" size="10" id="text_align" type="text" value="<?php echo (isset($settings['heading_display']) ? ($settings['heading_display'] ? $settings['heading_display'] : 'show') : 'show'); ?>">
+                                <input name="desg_display" id="text_align" size="10" type="text" value="<?php echo (isset($settings['desg_display']) ? ($settings['desg_display'] ? $settings['desg_display'] : 'show') : 'show'); ?>">
                                 <input name="org_display" id="text_align" size="10" type="text" value="<?php echo (isset($settings['org_display']) ? ($settings['org_display'] ? $settings['org_display'] : 'show') : 'show'); ?>">
                                 <input name="text_display" id="text_align" size="10" type="text" value="<?php echo (isset($settings['text_display']) ? ($settings['text_display'] ? $settings['text_display'] : 'show') : 'show'); ?>">
                             </span>
@@ -204,6 +216,39 @@
         <p><?php _e('col = The number of column you want to create (1,2,3,4)', SPEAKER_SLUG );?></p>
         <p><?php _e('speaker = The name of the speaker, you want to display | event= All speakers from specific event', SPEAKER_SLUG );?></p>
         <p><?php _e('layout = 1,2,3,isotope', SPEAKER_SLUG );?></p>
+    </div>
+
+    <div class="tlp-help">
+        <p style="font-weight: bold"><?php _e('Getting Started:', AGENDA_SLUG); ?> :</p><br>
+        <h3>Adding Speakers</h3>
+        <p>Click the “Add Speaker” link in the left hand menu.  Add information and save.</p><br>
+        <h3>Displaying your Speakers in a Post of Page</h3>
+        <p>To display your speakers you will need to add a ‘shortcode’ to the page or post in the location where you want the speakers to show.  This short code will look something like this:</p>
+        <code>[speaker]</code>
+        <p>This will give you a basic display of all the speakers you have created.  However, you can refine the shortcode using some additional options to control the final display.  This is what your shortcode may look like once you have added these settings:</p>
+        <code>[speaker col=”2” speaker=”4” orderby=”title” order=”ASC” layout=”1”]</code>
+        <p>The shortcode contains a number of optional elements that allow you to control the appearance of the speakers section.  These options are:</p>
+        <ul>
+        <li>col = The number of columns you want to create (eg. 1, 2, 3, 4)</li>
+        <li>speaker = The number of the speakers, you want to display (eg. 1, 5, 13 etc)</li>
+        <li>orderby = Orderby (title , date, menu_order)</li>
+        <li>ordr = ASC, DESC </li>
+        <li>layout = the layout template you want to use.  By default you can choose from  “1”, “2”, “3” and “isotope” (1 is a portrait type display with pictures at the top, 2 is a landscape display with picture in a circle, 3 is a landscape display with square picture, isotope is displays pictures only with mouse over text appearing but the order can be sorted by options selected at the top of the page).  Options 2 and 3 also allow you to displat logos in addtion to the speaker’s picture.</li> </ul><br>
+
+        <h3>Changing colours, fonts, etc. in your design template</h3>
+        <p>On the ‘Settings’ tab in the left hand menu you can change the appearance of many elements of the speaker profiles.</p>  
+        <ul>
+        <li>Primary Colour:  Select from pallatte or imput a hex value.</li>
+        <li>Square/Rounded Image:  Set a percentage eg 10% </li>
+        <li>Image size: Imput pixel size required eg: 200 - note that in some templates the number of columns required may mean this setting is disregarded.</li> 
+        <li>Image boder:  You can set the line type, pixel width and colour - eg “Solid 1pt grey” [what are the options?] </li>
+        <li>Text options:  Select a colour, Size (eg. “12pt”) and alignment (eg. “left”, “right”, “center”, “none”)</li>
+        <li>Show or hide text: toggle between the “show” and “hide” options for each element.</li>
+        <li>Slug: speaker</li>
+        <li>Link to Detail Page:  Enable links to full page biographical details from some templates </li>
+        <li>Custom CSS: Add CSS part with classname you want.</li>
+        <li>Save changes:  Don’t forget!</li>
+        </ul>
     </div>
 
 </div>
