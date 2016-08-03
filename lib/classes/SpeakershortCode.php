@@ -344,8 +344,8 @@ if(!class_exists('SpeakershortCode')):
 			$html = null;
 
 			$html .= '<div class="single-team-area"><a class="overlay-dsply" onclick="div_show('.$ID.')" id="speakerinfo">';
-			  	$html .='<div class="imageborder"><img class="img-responsive" src="'.$imgSrc.'" alt="'.$title.'"/></div><div class="overlay-profile">
-			  	<i class="fa fa-plus"></i></div></a>';
+			  	$html .='<div class="imageborder"><div class="overlay-profile">
+			  	<i class="fa fa-plus"></i></div><img class="img-responsive" src="'.$imgSrc.'" alt="'.$title.'"/></div></a>';
 			  	
 
 			
@@ -395,13 +395,14 @@ if(!class_exists('SpeakershortCode')):
                  /*Pop-up window start*/
 
                 $html .= '<div id="textm" class="popup">';
+                $html .= '<div id="demo">'; $html .= '</div>';
                 $html .= '<div id="popupContact">';
                 $html .= '<div class="popup-content">';
                 $html .= '<button onclick ="div_hide()" class="">X</button>';
-                $html .= '<div class="tlp-col-lg-5 tlp-col-md-5 tlp-col-sm-12 tlp-col-xs-12"><div class="pop-speaker" id="speakerimg" ></div></div>';
-                $html .= '<div class="tlp-col-lg-7 tlp-col-md-7 tlp-col-sm-12 tlp-col-xs-12">';
+                $html .= '<div class="tlp-col-lg-5 tlp-col-md-5 tlp-col-sm-5 tlp-col-xs-12 m-bottom20"><div class="pop-speaker" id="speakerimg" ></div></div>';
+                $html .= '<div class="tlp-col-lg-7 tlp-col-md-7 tlp-col-sm-7 tlp-col-xs-12 m-bottom20">';
                 $html .= "<h3 class='widget-heading popup-desc'><span id='namepopup'>";
-                $html .= "</span><br><span id='desigpopup'></span>,";
+                $html .= "</span><span id='desigpopup'></span>,";
                 $html .= " <span id='orgpopup'></span>";
                 $html .= "</h3>";
                 $html .= '<div id="biopopup"></div>';
@@ -471,10 +472,10 @@ if(!class_exists('SpeakershortCode')):
                 $html .= '<div id="popupContact">';
                 $html .= '<div class="popup-content">';
                 $html .= '<button onclick ="div_hide()" class="">X</button>';
-                $html .= '<div class="tlp-col-lg-5 tlp-col-md-5 tlp-col-sm-12 tlp-col-xs-12"><div class="pop-speaker" id="speakerimg" ></div></div>';
-                $html .= '<div class="tlp-col-lg-7 tlp-col-md-7 tlp-col-sm-12 tlp-col-xs-12">';
+                $html .= '<div class="tlp-col-lg-5 tlp-col-md-5 tlp-col-sm-12 tlp-col-xs-12 m-bottom20"><div class="pop-speaker" id="speakerimg" ></div></div>';
+                $html .= '<div class="tlp-col-lg-7 tlp-col-md-7 tlp-col-sm-12 tlp-col-xs-12 m-bottom20">';
                 $html .= "<h3 class='widget-heading popup-desc'><span id='namepopup'>";
-                $html .= "</span><br><span id='desigpopup'></span>,";
+                $html .= "</span><span id='desigpopup'></span>,";
                 $html .= " <span id='orgpopup'></span>";
                 $html .= "</h3>";
                 $html .= '<div id="biopopup"></div>';
@@ -539,10 +540,10 @@ if(!class_exists('SpeakershortCode')):
                 $html .= '<div id="popupContact">';
                 $html .= '<div class="popup-content">';
                 $html .= '<button onclick ="div_hide()" class="">X</button>';
-                $html .= '<div class="tlp-col-lg-5 tlp-col-md-5 tlp-col-sm-12 tlp-col-xs-12"><div class="pop-speaker" id="speakerimg" ></div></div>';
-                $html .= '<div class="tlp-col-lg-7 tlp-col-md-7 tlp-col-sm-12 tlp-col-xs-12">';
+                $html .= '<div class="tlp-col-lg-5 tlp-col-md-5 tlp-col-sm-12 tlp-col-xs-12 m-bottom20"><div class="pop-speaker" id="speakerimg" ></div></div>';
+                $html .= '<div class="tlp-col-lg-7 tlp-col-md-7 tlp-col-sm-12 tlp-col-xs-12 m-bottom20">';
                 $html .= "<h3 class='widget-heading popup-desc'><span id='namepopup'>";
-                $html .= "</span><br><span id='desigpopup'></span>,";
+                $html .= "</span><span id='desigpopup'></span>,";
                 $html .= " <span id='orgpopup'></span>";
                 $html .= "</h3>";
                 $html .= '<div id="biopopup"></div>';
@@ -591,10 +592,10 @@ if(!class_exists('SpeakershortCode')):
                 $html .= '<div id="popupContact">';
                 $html .= '<div class="popup-content">';
                 $html .= '<button onclick ="div_hide()" class="">X</button>';
-                $html .= '<div class="tlp-col-lg-5 tlp-col-md-5 tlp-col-sm-12 tlp-col-xs-12"><div class="pop-speaker" id="speakerimg" ></div></div>';
-                $html .= '<div class="tlp-col-lg-7 tlp-col-md-7 tlp-col-sm-12 tlp-col-xs-12">';
+                $html .= '<div class="tlp-col-lg-5 tlp-col-md-5 tlp-col-sm-12 tlp-col-xs-12 m-bottom20"><div class="pop-speaker" id="speakerimg" ></div></div>';
+                $html .= '<div class="tlp-col-lg-7 tlp-col-md-7 tlp-col-sm-12 tlp-col-xs-12 m-bottom20">';
                 $html .= "<h3 class='widget-heading popup-desc'><span id='namepopup'>";
-                $html .= "</span><br><span id='desigpopup'></span>,";
+                $html .= "</span><span id='desigpopup'></span>,";
                 $html .= " <span id='orgpopup'></span>";
                 $html .= "</h3>";
                 $html .= '<div id="biopopup"></div>';

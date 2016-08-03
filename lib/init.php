@@ -1,6 +1,7 @@
 <?php
+require ('Wp_License_Manager_Client.php');
 
-class Speaker
+class Speaker extends Wp_License_Manager_Client
 {
     public $options;
    
@@ -9,11 +10,13 @@ class Speaker
 
         $this->options = array(
             'settings' => 'speaker_settings',
-            'version'  => '1.3',
+            'version'  => '0.1',
             'feature_img_size' => 'speaker-thumb',
             'installed_version' => 'speaker_installed_version'
         );
 
+        
+                
         $this->post_type = 'speaker';
         $settings = get_option($this->options['settings']);
         $this->post_type_slug = isset($settings['slug']) ? ($settings['slug'] ? sanitize_title_with_dashes($settings['slug']) : 'speaker' ) : 'speaker';
@@ -38,24 +41,35 @@ class Speaker
             'custom_css' => null
         );
 
-
+       
         register_activation_hook(SPEAKER_PLUGIN_ACTIVE_FILE_NAME, array($this, 'activate'));
+      
+    
+
+        
+
+        //register_activation_hook(SPEAKER_PLUGIN_ACTIVE_FILE_NAME, array($this, 'initval'));
         
         register_deactivation_hook(SPEAKER_PLUGIN_ACTIVE_FILE_NAME, array($this, 'deactivate'));
+
         
+        /* $license_manager = new Wp_License_Manager_Client(); */
+
 
 	}
+
+    public function initval($product_id,$product_name,$text_domain,$api_url){
+      parent::__construct($product_id,$product_name,$text_domain,$api_url);  
+    }
+
     public function activate() {
         flush_rewrite_rules();
         $this->insertDefaultData();
     }
 
-    
-
     public function deactivate() {
         flush_rewrite_rules();
     }
-
     
    
 	function TPLloadClass($dir){
@@ -76,6 +90,10 @@ class Speaker
             	    $this->objects[] = $class;
             }
 	}
+    
+
+
+
 
     function loadWidget($dir){
         if (!file_exists($dir)) return;
@@ -223,9 +241,14 @@ function shortcode_button_script()
             </script>
         <?php
     }
-    
-}
 
+}
+$newtest= new Wp_License_Manager_Client('speaker','Symposium Speaker Profiles Pro','Display your speaker profiles with ease.','http://www.blackandwhitedigital.eu/api/license-manager/v1', plugin_dir_path( __FILE__ ));
+/*$newtest->add_license_settings_page();*/
+
+/*$newtest->__construct();*/
 add_action("admin_print_footer_scripts", "shortcode_button_script");
 
 
+
+     

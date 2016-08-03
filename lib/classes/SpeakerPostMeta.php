@@ -130,14 +130,16 @@ if (!class_exists('SpeakerPostMeta')):
                                 $event_date = get_post_meta( get_the_ID(), 'event_date', true );
                                 ?>
                                     <option value="<?php echo get_the_title(); 
-                                        ?>&<?php  echo get_permalink()?>&<?php echo $event_date ?> ">
+                                        ?>**<?php  echo get_permalink()?>**<?php echo $event_date ?> ">
                                     <?php echo get_the_title(); 
                                     ?>
                                     </option>
                                 <?php endwhile;  ?>
                             </select>
-                        <?php endif; ?>
-                        
+                        <?php //endif;
+                        else: ?><input type="text" name="Event_name" class="tlpfield" value="<?php echo (@$meta['Event_name'][0] ? @$meta['Event_name'][0] : null) ?>">
+                            
+                        <?php  endif; ?>
                         <span class="desc"></span>
                     </div>
                 </div>
@@ -208,9 +210,9 @@ if (!class_exists('SpeakerPostMeta')):
             if ( isset( $_REQUEST['Event_name'] ) ) {
                 $str = $_REQUEST['Event_name'];
                 $strr = $_REQUEST['Event_name'];
-                $test=(explode('&',$str,-1));
-                $plink=(explode('&',$str,-1));                
-                $date=(explode('&',$str,3));
+                $test=(explode('**',$str,-1));
+                $plink=(explode('**',$str,-1));                
+                $date=(explode('**',$str,3));
                 update_post_meta( $post_id, 'Speaker_event', sanitize_text_field( $test[0] ) );
                 update_post_meta( $post_id, 'speakerevent_link', sanitize_text_field( $plink[1] ) );
                 update_post_meta( $post_id, 'speakerevent_date', sanitize_text_field( $date[2] ) );
