@@ -3,8 +3,10 @@
 if(!class_exists('SpeakerPostTypeRegistrations')):
 
 	class SpeakerPostTypeRegistrations {
+		//public $dr;
 
 		public function __construct() {
+		
 			// Add the team post type and taxonomies
 			add_action( 'init', array( $this, 'register' ) );
 		}

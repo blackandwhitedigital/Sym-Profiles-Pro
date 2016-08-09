@@ -1,10 +1,11 @@
 <?php
 //if ( ! class_exists( 'Wp_License_Manager_Client' ) ) {
-require ('Wp_License_Manager_Public.php');
+//require ('init.php');
  
-    class Wp_License_Manager_Client extends Wp_License_Manager_Public {
+    class Wp_License_Manager_Client  {
 
-		    	/**
+	//$newtest= new Wp_License_Manager_Client('speaker','Symposium Speaker Profiles Pro','Display your speaker profiles with ease.','http://www.blackandwhitedigital.eu?wc-api=am-software-api', plugin_dir_path( __FILE__ ));	    
+    	/**
 		 * The API endpoint. Configured through the class's constructor.
 		 *
 		 * @var String  The API endpoint.
@@ -56,7 +57,7 @@ require ('Wp_License_Manager_Public.php');
 		 * @param $type         string  The type of project this class is being used in ('theme' or 'plugin')
 		 * @param $plugin_file  string  The full path to the plugin's main file (only for plugins)
 		 */
-		public function __construct( $product_id, $product_name, $text_domain, $api_url, $plugin_file,$type = 'plugin' ) {
+		public function __construct( $product_id='speaker', $product_name='Symposium Speaker Profiles Pro', $text_domain='Display your speaker profiles with ease.', $api_url='http://www.blackandwhitedigital.eu?wc-api=am-software-api', $plugin_file='',$type = 'plugin' ) {
 		        // Store setup data
 
 		        $this->product_id = $product_id;
@@ -69,7 +70,7 @@ require ('Wp_License_Manager_Public.php');
          		add_action( 'admin_menu', array( $this, 'add_license_settings_page' ) );
         		add_action( 'admin_init', array( $this, 'add_license_settings_fields' ) );
         		add_action( 'admin_notices', array( $this, 'show_admin_notices' ) );
-        	
+        		add_action('admin_init', array( $this,'edd_sample_activate_license'));
 		       
 		    }
 
@@ -79,7 +80,7 @@ require ('Wp_License_Manager_Public.php');
     public function add_license_settings_page() {
         $title = sprintf( __( '%s License', $this->text_domain ), $this->product_name );
 
-     
+            
         add_options_page(
             $title,
             $title,
@@ -208,7 +209,7 @@ require ('Wp_License_Manager_Public.php');
 		    if ( !$options || ! isset( $options['email'] ) || ! isset( $options['license_key'] ) ||
 		        $options['email'] == '' || $options['license_key'] == '' ) {
 		 
-		        $msg = __( 'Please enter your email and license key to enable updates to %s.', $this->text_domain );
+		        $msg = __( 'The Symposium Speaker Pro API License Key has not been activated, so the plugin is inactive! Click here to activate the license key and the plugin.', $this->text_domain );
 		        $msg = sprintf( $msg, $this->product_name );
 		        ?>
 		            <div class="update-nag">
@@ -378,24 +379,91 @@ require ('Wp_License_Manager_Public.php');
          *
          * @return          array   The API response
          */
-        private function call_api( $action, $params ) {
+        public function call_api( $action, $params, $dir ) {
+            $array = [
+            'request' => 'activation',
+            'email' => $params['email'],
+            'licence_key' => $params['license_key'],
+            'product_id' => 'Symposium Speaker Profiles Pro',
+            'platform' => home_url(),
+            'instance' => uniqid(),
+            'software_version' => '0.1'
 
+        ];
+        //var_dump($params['email']);
+        $url = 'http://www.blackandwhitedigital.eu?wc-api=am-software-api&email=' . urlencode($array['email']) . '&licence_key=' . urlencode($array['licence_key']) . '&request=' . urlencode($array['request']) . '&product_id=' . urlencode($array['product_id']) . '&instance=' . urlencode($array['instance']) . '&platform=' . urlencode($array['platform']) . '&software_version=' . urlencode($array['software_version']);
 
-            $url = $this->api_endpoint . '/' . $action;
+         $response = wp_remote_get( $url  );
 
-            // Append parameters for GET request
-            $url .= '?' . http_build_query( $params );
-            
-            // Send the request
-            $response = wp_remote_get( $url );
             if ( is_wp_error( $response ) ) {
                 return false;
             }
             $response_body = wp_remote_retrieve_body( $response );
+            $result = json_decode( $response_body,true );
+            
+            if (!isset($result['error'])){
+              
+                if (!file_exists($dir)) return;
+
+                $classes = array();
+
+                foreach (scandir($dir) as $item) {
+                    if( preg_match( "/.php$/i" , $item ) ) {
+                        require_once( $dir . $item );
+                        $className = str_replace( ".php", "", $item );
+                        $classes[] = new $className;
+                    }
+                }
+
+                if($classes){
+                    foreach( $classes as $class )
+                        $this->objects[] = $class;
+                    //unset($this->objects[3]);
+                   
+                }
+       
+                
+            }else{
+                $msg = __( 'The Symposium Speaker Pro API License Key and Email is invalid, so the plugin is inactive! Please enter the correct API License Key and Email.');
+                $msg = sprintf( $msg, 'Symposium Speaker Profiles Pro' );
+                ?>
+                
+                <div class="update-nag" style="float:right;margin-right: 10%;
+    width: 73.5%;">
+                        <p>
+                            <?php echo $msg; ?>
+                        </p>
+                        <p>
+                            <a href="<?php echo admin_url( 'options-general.php?page=' . $this->get_settings_page_slug() ); ?>">
+                                <?php _e( 'Complete the setup now.', $this->text_domain ); ?>
+                            </a>
+                        </p>
+                </div>
+                </div>
+                <?php
+                //echo $msg;
+            }
+        ///echo $rev;
+           /* $url = $this->api_endpoint;
+
+            // Append parameters for GET request
+            $url .= '&' . http_build_query( $params );
+           
+            // Send the request
+            $response = wp_remote_get( $url  );
+
+            if ( is_wp_error( $response ) ) {
+                return false;
+            }
+
+            $response_body = wp_remote_retrieve_body( $response );
             $result = json_decode( $response_body );
-            $tinfo= new Wp_License_Manager_Public('WooCommerce API Manager','1.4.6.3');
-            $tinfo->handle_request($action, $params);
-            //return $result;
+            //$tinfo= new Wp_License_Manager_Public('WooCommerce API Manager','1.4.6.3');
+            //$tinfo->handle_request($action, $params);
+            $this->is_api_error($response);
+            var_dump($result);
+            exit();*/
+            //return $response;
 
             
         }
@@ -407,10 +475,13 @@ require ('Wp_License_Manager_Public.php');
          * @return bool     True if there was an error. Otherwise false.
          */
         private function is_api_error( $response ) {
+        	
             if ( $response === false ) {
+            
                 return true;
             }
             if ( ! is_object( $response ) ) {
+                
                 return true;
             }
             if ( isset( $response->error ) ) {
@@ -427,22 +498,64 @@ require ('Wp_License_Manager_Public.php');
 		public function get_license_info(){
 
 		    $options = get_option( $this->get_settings_field_name() );
+           //$options = get_option('speaker-license-settings' );
 		    if ( ! isset( $options['email'] ) || ! isset( $options['license_key'] ) ) {
 		        // User hasn't saved the license to settings yet. No use making the call.
 	        return false;
 
 		    }
 
-		    $info = $this->call_api('info',array(
-		            'p' => $this->product_id,
-		            'e' => $options['email'],
-		            'l' => $options['license_key']
+		    /*$info = $this->call_api('info',array(
+		            
+		            'email' => $options['email'],
+		            'license_key' => $options['license_key'],
+                    'request' => 'activation',
+                    'product_id' => 'Symposium Speaker Profiles Pro',
+                    'instance' => uniqid(),
+                    'platform' => home_url(),          
+                    'software_version' => '0.1'
 		        )
 		    );
 
 		 
-		    return $info;
+		    return $info;*/
 		}
+
+		function edd_sample_activate_license() {
+			// listen for our activate button to be clicked
+			if( isset( $_POST['edd_license_activate'] ) ) {
+				// run a quick security check 
+			 	if( ! check_admin_referer( 'edd_sample_nonce', 'edd_sample_nonce' ) ) 	
+					return; // get out if we didn't click the Activate button
+				// retrieve the license from the database
+				$license = trim( $_POST[ 'edd_sample_license_key'] );
+					
+				// data to send in our API request
+				$api_params = array( 
+					'edd_action'=> 'activate_license', 
+					'license' 	=> $license, 
+					'item_name' => urlencode( EDD_SL_ITEM_NAME ), // the name of our product in EDD,
+					'url'       => home_url()
+				);
+				
+				// Call the custom API.
+				$response = wp_remote_post( EDD_SL_STORE_URL, array(
+					'timeout'   => 15,
+					'sslverify' => false,
+					'body'      => $api_params
+				) );
+				// make sure the response came back okay
+				if ( is_wp_error( $response ) )
+					return false;
+				// decode the license data
+				$license_data = json_decode( wp_remote_retrieve_body( $response ) );
+				
+				// $license_data->license will be either "active" or "inactive"
+				update_option( 'edd_sample_license_status', $license_data->license );
+			}
+		}
+
+
     
 
 	}

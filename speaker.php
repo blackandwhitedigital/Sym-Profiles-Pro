@@ -20,7 +20,11 @@ define( 'SPEAKER_LANGUAGE_PATH', dirname( plugin_basename( __FILE__ ) ) . '/lang
 
 require('lib/init.php');
 
+//require ('lib/Wp_License_Manager_Client.php');
 wp_enqueue_style('thickbox'); // call to media files in wp
 wp_enqueue_script('thickbox');
 wp_enqueue_script( 'media-upload'); 
 //$license_manager = new Wp_License_Manager_Client('speaker');
+
+
+

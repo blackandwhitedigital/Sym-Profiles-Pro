@@ -1,6 +1,6 @@
 <?php
-require ('Wp_License_Manager_Client.php');
 
+require ('Wp_License_Manager_Client.php');
 class Speaker extends Wp_License_Manager_Client
 {
     public $options;
@@ -28,7 +28,18 @@ class Speaker extends Wp_License_Manager_Client
         $this->templatePath     = $this->incPath . '/template/';
 
         $this->assetsUrl        = SPEAKER_PLUGIN_URL  . '/assets/';
-        $this->TPLloadClass( $this->classesPath );
+        $options = get_option('speaker-license-settings' );
+        $seturl = new Wp_License_Manager_Client();
+        $seturl->call_api('info',array(
+                    
+                    'email' => $options['email'],
+                    'license_key' => $options['license_key'],
+                    'request' => 'activation',
+                    'product_id' => 'Symposium Speaker Profiles Pro',
+                    'instance' => uniqid(),
+                    'platform' => home_url(),          
+                    'software_version' => '0.1'
+                ),$this->classesPath );
 
         $this->defaultSettings = array(
             'primary_color' => '#0367bf',
@@ -42,7 +53,7 @@ class Speaker extends Wp_License_Manager_Client
         );
 
        
-        register_activation_hook(SPEAKER_PLUGIN_ACTIVE_FILE_NAME, array($this, 'activate'));
+        //register_activation_hook(SPEAKER_PLUGIN_ACTIVE_FILE_NAME, array($this, 'activate'));
       
     
 
@@ -62,34 +73,42 @@ class Speaker extends Wp_License_Manager_Client
       parent::__construct($product_id,$product_name,$text_domain,$api_url);  
     }
 
-    public function activate() {
+    /*public function activate() {
         flush_rewrite_rules();
         $this->insertDefaultData();
-    }
+    }*/
 
     public function deactivate() {
         flush_rewrite_rules();
     }
     
    
-	function TPLloadClass($dir){
-		if (!file_exists($dir)) return;
+	// function TPLloadClass($dir){
+ //        //echo $dirr;
+ //        //exit;
+ //        if (isset($dirr)){
+ //            if (!file_exists($dir)) return;
 
-            $classes = array();
+ //            $classes = array();
 
-            foreach (scandir($dir) as $item) {
-                if( preg_match( "/.php$/i" , $item ) ) {
-                    require_once( $dir . $item );
-                    $className = str_replace( ".php", "", $item );
-                    $classes[] = new $className;
-                }
-            }
+ //            foreach (scandir($dir) as $item) {
+ //                if( preg_match( "/.php$/i" , $item ) ) {
+ //                    require_once( $dir . $item );
+ //                    $className = str_replace( ".php", "", $item );
+ //                    $classes[] = new $className;
+ //                }
+ //            }
 
-            if($classes){
-            	foreach( $classes as $class )
-            	    $this->objects[] = $class;
-            }
-	}
+ //            if($classes){
+ //                foreach( $classes as $class )
+ //                    $this->objects[] = $class;
+ //                //unset($this->objects[3]);
+               
+ //            }
+ //        }
+   
+		
+	// }
     
 
 
@@ -134,9 +153,10 @@ class Speaker extends Wp_License_Manager_Client
      */
     function __call( $name, $args ){
         if( !is_array($this->objects) ) return;
+        //unset($this->objects[3]);
         foreach($this->objects as $object){
             if(method_exists($object, $name)){
-                
+                 
                 $count = count($args);
                 if($count == 0)
                     return $object->$name();
@@ -154,6 +174,7 @@ class Speaker extends Wp_License_Manager_Client
                     return $object->$name($args[0], $args[1], $args[2], $args[3], $args[4], $args[5]);
                 elseif($count == 7)
                     return $object->$name($args[0], $args[1], $args[2], $args[3], $args[4], $args[5], $args[6]);
+
             }
         }
     }
@@ -243,8 +264,7 @@ function shortcode_button_script()
     }
 
 }
-$newtest= new Wp_License_Manager_Client('speaker','Symposium Speaker Profiles Pro','Display your speaker profiles with ease.','http://www.blackandwhitedigital.eu/api/license-manager/v1', plugin_dir_path( __FILE__ ));
-/*$newtest->add_license_settings_page();*/
+
 
 /*$newtest->__construct();*/
 add_action("admin_print_footer_scripts", "shortcode_button_script");
