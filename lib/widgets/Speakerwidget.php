@@ -10,7 +10,7 @@ if(!class_exists('Speakerwidget')):
          */
         function Speakerwidget() {
 
-            $widget_ops = array( 'classname' => 'widget_Speaker', 'description' => __('Speakers', SPEAKER_SLUG) );
+            $widget_ops = array( 'classname' => 'widget_Speaker', 'description' => __('Display the Speakers', SPEAKER_SLUG) );
 
             parent::__construct( 'widget_Speaker', __('Speaker', SPEAKER_SLUG), $widget_ops);
 
@@ -33,7 +33,7 @@ if(!class_exists('Speakerwidget')):
             @$speaker = ($instance['speaker'] ? (int)$instance['speaker'] : 2);
             @$layout = ($instance['layout'] ? (int)$instance['layout'] : 'grid');
 
-
+    
             echo $before_widget;
 
             if ( ! empty( $instance['title'] ) ) {
@@ -165,7 +165,7 @@ if(!class_exists('Speakerwidget')):
         public function update( $new_instance, $old_instance ) {
           $instance = array();
           $instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
-          $instance['speaker'] = ( ! empty( $new_instance['speaker'] ) ) ? (int)( $new_instance['member'] ) : '';
+          $instance['speaker'] = ( ! empty( $new_instance['speaker'] ) ) ? (int)( $new_instance['speaker'] ) : '';
           $instance['layout'] = ( ! empty( $new_instance['layout'] ) ) ? (int)( $new_instance['layout'] ) : '';
 
           return $instance;
