@@ -9,7 +9,7 @@ if(!class_exists('OneSpeakerShortcode')):
 	{
 		function __construct()
 		{			
-			add_shortcode( 'speaker', array( $this, 'speakerpost_shortcode' ) );
+			add_shortcode( 'speakerinfo', array( $this, 'speakerpost_shortcode' ) );
 			add_action( 'wp_enqueue_scripts', array($this, 'fancybox_speaker') );
 			add_action('wp_ajax_speakerinfo',  array($this,'speakerinfo'));
             add_action('wp_ajax_nopriv_speakerinfo',  array($this,'speakerinfo'));
@@ -27,7 +27,7 @@ if(!class_exists('OneSpeakerShortcode')):
 					'order'	=> 'DESC',
 					'layout'	=> 1,
 					'pagination' => off,
-				), $atts, 'speaker' );
+				), $atts, 'speakerinfo' );
 			$pagination = $atts['pagination'] == 'on' ? true : false;
 
 			if(!in_array($atts['col'], $col_A)){
@@ -44,13 +44,13 @@ if(!class_exists('OneSpeakerShortcode')):
 			global $wpdb;
     		$mypostids = $wpdb->get_col("SELECT ID from $wpdb->posts where post_title LIKE '". $atts['speaker']."%' ");
 
-    		$eventids = $wpdb->get_results("SELECT post_id from $wpdb->postmeta where meta_value = 'event'");
+    		$eventids = $wpdb->get_results("SELECT post_id from $wpdb->postmeta where meta_key = 'speakerevent_ID'");
     		$eventinfo = array();
-    		echo "<pre>";
+    		var_dump($eventinfo);
     		foreach ($eventids as $key => $value) {
     		$val=$value->post_id;
     		$eventinfo[] = $val;
-
+    		
     		}
     		if ($mypostids){
 			$args = array(
@@ -105,14 +105,25 @@ if(!class_exists('OneSpeakerShortcode')):
 				      		}
 
                             $grid=12/$atts['col'];
-
                             if($atts['col']==2){
 						          $image_area="tlp-col-lg-5 tlp-col-md-5 tlp-col-sm-6 tlp-col-xs-12 ";
 						          $content_area="tlp-col-lg-7 tlp-col-md-7 tlp-col-sm-6 tlp-col-xs-12 ";
-						   	}else{
-						          $image_area="tlp-col-lg-3 tlp-col-md-3 tlp-col-sm-6 tlp-col-xs-12 ";
+						          $logoarea="";
+						      }elseif($atts['col']==3){
+						          $image_area="tlp-col-lg-3 tlp-col-md-4 tlp-col-sm-6 tlp-col-xs-12 ";
 						          $content_area="tlp-col-lg-9 tlp-col-md-9 tlp-col-sm-6 tlp-col-xs-12 ";
-						    }
+						          $logoarea="tlp-col-lg-12 tlp-col-md-12 tlp-col-sm-12 tlp-col-xs-12";
+						      }
+							elseif($atts['col']==4){
+						          $image_area
+						          ="tlp-col-lg-12 tlp-col-md-12 tlp-col-sm-12 tlp-col-xs-12 ";
+						          $content_area="tlp-col-lg-12 tlp-col-md-12 tlp-col-sm-12 tlp-col-xs-12 ";
+						          $logoarea="";
+						      }else{
+						          $image_area="tlp-col-lg-3 tlp-col-md-4 tlp-col-sm-6 tlp-col-xs-12 ";
+						          $content_area="tlp-col-lg-9 tlp-col-md-9 tlp-col-sm-6 tlp-col-xs-12 ";
+						          $logoarea="";
+						      }
 
 				      		$sLink = unserialize(get_post_meta( get_the_ID(), 'social' , true));
 
@@ -407,7 +418,7 @@ if(!class_exists('OneSpeakerShortcode')):
 			return $html;
 		}
 
-		function speakerinfo(){
+		function speakerinfo(){ 
 			global $Speaker;
 			$id= $_POST['id'];
 			$post_info = get_post($id ); 

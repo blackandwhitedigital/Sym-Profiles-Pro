@@ -933,3 +933,6 @@ div#popupContact {
   min-height: 450px;
 }
   */
+
+  pre {
+    border: none !important;}

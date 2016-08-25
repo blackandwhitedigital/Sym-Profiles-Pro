@@ -130,7 +130,7 @@ if (!class_exists('SpeakerPostMeta')):
                                 $event_date = get_post_meta( get_the_ID(), 'event_date', true );
                                 ?>
                                     <option value="<?php echo get_the_title(); 
-                                        ?>**<?php  echo get_permalink()?>**<?php echo $event_date ?> ">
+                                        ?>**<?php  echo get_permalink();?>**<?php echo $event_date; ?>**<?php echo get_the_ID(); ?> ">
                                     <?php echo get_the_title(); 
                                     ?>
                                     </option>
@@ -213,9 +213,11 @@ if (!class_exists('SpeakerPostMeta')):
                 $test=(explode('**',$str,-1));
                 $plink=(explode('**',$str,-1));                
                 $date=(explode('**',$str,3));
+                $ID=(explode('**',$str,4));
                 update_post_meta( $post_id, 'Speaker_event', sanitize_text_field( $test[0] ) );
                 update_post_meta( $post_id, 'speakerevent_link', sanitize_text_field( $plink[1] ) );
                 update_post_meta( $post_id, 'speakerevent_date', sanitize_text_field( $date[2] ) );
+                update_post_meta( $post_id, 'speakerevent_ID', sanitize_text_field( $ID[3] ) );
             }
 
             if( isset($_REQUEST['social'])){

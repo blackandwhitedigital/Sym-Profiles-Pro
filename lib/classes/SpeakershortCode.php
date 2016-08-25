@@ -9,7 +9,7 @@ if(!class_exists('SpeakershortCode')):
 	{
 		function __construct()
 		{
-			add_shortcode( 'speakers', array( $this, 'speaker_shortcode' ) );
+			add_shortcode( 'speaker', array( $this, 'speaker_shortcode' ) );
 			add_shortcode( 'speakerinfo', array( $this, 'speakerinfo_shortcode' ) );
 			add_action( 'wp_enqueue_scripts', array($this, 'fancybox_speaker') );
 			add_action('wp_ajax_speakerinfo',  array($this,'speakerinfo'));
@@ -29,7 +29,7 @@ if(!class_exists('SpeakershortCode')):
 					'order'	=> 'DESC',
 					'layout'	=> 1,
 					'pagination' => off,
-				), $atts, 'speakers' );
+				), $atts, 'speaker' );
 
 			$pagination = $atts['pagination'] == 'on' ? true : false;
 
@@ -106,10 +106,23 @@ if(!class_exists('SpeakershortCode')):
                             if($atts['col']==2){
 						          $image_area="tlp-col-lg-5 tlp-col-md-5 tlp-col-sm-6 tlp-col-xs-12 ";
 						          $content_area="tlp-col-lg-7 tlp-col-md-7 tlp-col-sm-6 tlp-col-xs-12 ";
-						      }else{
-						          $image_area="tlp-col-lg-3 tlp-col-md-3 tlp-col-sm-6 tlp-col-xs-12 ";
+						          $logoarea="";
+						      }elseif($atts['col']==3){
+						          $image_area="tlp-col-lg-3 tlp-col-md-4 tlp-col-sm-6 tlp-col-xs-12 ";
 						          $content_area="tlp-col-lg-9 tlp-col-md-9 tlp-col-sm-6 tlp-col-xs-12 ";
+						          $logoarea="tlp-col-lg-12 tlp-col-md-12 tlp-col-sm-12 tlp-col-xs-12";
 						      }
+							elseif($atts['col']==4){
+						          $image_area
+						          ="tlp-col-lg-12 tlp-col-md-12 tlp-col-sm-12 tlp-col-xs-12 ";
+						          $content_area="tlp-col-lg-12 tlp-col-md-12 tlp-col-sm-12 tlp-col-xs-12 ";
+						          $logoarea="";
+						      }else{
+						          $image_area="tlp-col-lg-3 tlp-col-md-4 tlp-col-sm-6 tlp-col-xs-12 ";
+						          $content_area="tlp-col-lg-9 tlp-col-md-9 tlp-col-sm-6 tlp-col-xs-12 ";
+						          $logoarea="";
+						      }
+
 
 				      		$sLink = unserialize(get_post_meta( get_the_ID(), 'social' , true));
 
@@ -195,6 +208,7 @@ if(!class_exists('SpeakershortCode')):
 			global $Speaker;
 			$atts = shortcode_atts( array(
 					'speaker' => 'Panda',
+					'event' => '123',
 					'col' => 3, 
 		            'orderby'   => 'organisation',
 					'order'	=> 'DESC',
@@ -217,9 +231,13 @@ if(!class_exists('SpeakershortCode')):
 			global $wpdb;
     		$mypostids = $wpdb->get_col("SELECT ID from $wpdb->posts where post_title LIKE '". $atts['speaker']."%' ");
 
-    		$eventids = $wpdb->get_results("SELECT post_id from $wpdb->postmeta where meta_value = 'event'");
+    		$eventids = $wpdb->get_results("SELECT post_id from $wpdb->postmeta where meta_value = ". $atts['event']."", ARRAY_A );
+    		//$results = $wpdb->get_results( "select post_id, meta_key from $wpdb->postmeta where meta_value = 'this is my example value.'", ARRAY_A );
+
+    		var_dump($atts['event']);
+    		var_dump($eventids);
     		$eventinfo = array();
-    		echo "<pre>";
+    		
     		foreach ($eventids as $key => $value) {
     		$val=$value->post_id;
     		$eventinfo[] = $val;
@@ -282,10 +300,23 @@ if(!class_exists('SpeakershortCode')):
                             if($atts['col']==2){
 						          $image_area="tlp-col-lg-5 tlp-col-md-5 tlp-col-sm-6 tlp-col-xs-12 ";
 						          $content_area="tlp-col-lg-7 tlp-col-md-7 tlp-col-sm-6 tlp-col-xs-12 ";
-						   	}else{
-						          $image_area="tlp-col-lg-3 tlp-col-md-3 tlp-col-sm-6 tlp-col-xs-12 ";
+						          $logoarea="";
+						      }elseif($atts['col']==3){
+						          $image_area="tlp-col-lg-3 tlp-col-md-4 tlp-col-sm-6 tlp-col-xs-12 ";
 						          $content_area="tlp-col-lg-9 tlp-col-md-9 tlp-col-sm-6 tlp-col-xs-12 ";
-						    }
+						          $logoarea="tlp-col-lg-12 tlp-col-md-12 tlp-col-sm-12 tlp-col-xs-12";
+						      }
+							elseif($atts['col']==4){
+						          $image_area
+						          ="tlp-col-lg-12 tlp-col-md-12 tlp-col-sm-12 tlp-col-xs-12 ";
+						          $content_area="tlp-col-lg-12 tlp-col-md-12 tlp-col-sm-12 tlp-col-xs-12 ";
+						          $logoarea="";
+						      }else{
+						          $image_area="tlp-col-lg-3 tlp-col-md-4 tlp-col-sm-6 tlp-col-xs-12 ";
+						          $content_area="tlp-col-lg-9 tlp-col-md-9 tlp-col-sm-6 tlp-col-xs-12 ";
+						          $logoarea="";
+						      }
+
 
 				      		$sLink = unserialize(get_post_meta( get_the_ID(), 'social' , true));
 

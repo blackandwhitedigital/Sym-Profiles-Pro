@@ -114,28 +114,28 @@
                             <span class="asmin-color-three" style="display:block;">
                                  <select name="textstylehead" id="textstylehead" type="text"
                                         value="<?php echo(isset($settings['textstylehead']) ? ($settings['textstylehead'] ? $settings['textstylehead'] : 'normal') : 'normal'); ?>">
-                                    <option value="normal">select</option>
+                                    <option value="normal"><?php echo (isset($settings['textstylehead']) ? ($settings['textstylehead'] ? $settings['textstylehead'] : 'normal') : 'normal'); ?></option>
                                     <option value="bold">bold</option>
                                     <option value="italic">italic</option>
                                     <option value="underline">underline</option>
                                 </select>
                                 <select name="textstyledesg" id="textstyledesg" type="text"
                                         value="<?php echo(isset($settings['textstyledesg']) ? ($settings['textstyledesg'] ? $settings['textstyledesg'] : 'normal') : 'normal'); ?>">
-                                    <option value="normal">select</option>
+                                    <option value="normal"><?php echo (isset($settings['textstyledesg']) ? ($settings['textstyledesg'] ? $settings['textstyledesg'] : 'normal') : 'normal'); ?></option>
                                     <option value="bold">bold</option>
                                     <option value="italic">italic</option>
                                     <option value="underline">underline</option>
                                 </select>
                                  <select name="textstyleorg" id="textstyleorg" type="text"
                                         value="<?php echo(isset($settings['textstyleorg']) ? ($settings['textstyleorg'] ? $settings['textstyleorg'] : 'normal') : 'normal'); ?>">
-                                    <option value="normal">select</option>
+                                    <option value="normal"><?php echo (isset($settings['textstyleorg']) ? ($settings['textstyleorg'] ? $settings['textstyleorg'] : 'normal') : 'normal'); ?></option>
                                     <option value="bold">bold</option>
                                     <option value="italic">italic</option>
                                     <option value="underline">underline</option>
                                 </select>
                                  <select name="textstyledesc" id="textstyledesc" type="text"
                                         value="<?php echo(isset($settings['textstyledesc']) ? ($settings['textstyledesc'] ? $settings['textstyledesc'] : 'normal') : 'normal'); ?>">
-                                    <option value="normal">select</option>
+                                    <option value="normal"><?php echo (isset($settings['textstyledesc']) ? ($settings['textstyledesc'] ? $settings['textstyledesc'] : 'normal') : 'normal'); ?></option>
                                     <option value="bold">bold</option>
                                     <option value="italic">italic</option>
                                     <option value="underline">underline</option>
@@ -204,7 +204,7 @@
 
     <div class="tlp-help">
         <p style="font-weight: bold"><?php _e('Short Code', SPEAKER_SLUG );?> :</p>
-        <p>[speakers col="2" speaker="4" orderby="organisation" order="ASC" layout="1"]</p><br>
+        <p>[speaker col="2" speaker="4" orderby="organisation" order="ASC" layout="1"]</p><br>
         <p><?php _e('col = The number of column you want to create (1,2,3,4)', SPEAKER_SLUG );?></p>
         <p><?php _e('speaker = The number of the speaker, you want to display per page', SPEAKER_SLUG );?></p>
         <p><?php _e('orderby = Orderby (organisation , designation, Speaker_event, Speakerevent_date)', SPEAKER_SLUG );?></p>
