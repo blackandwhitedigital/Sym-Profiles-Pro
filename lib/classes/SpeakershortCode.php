@@ -22,6 +22,8 @@ if(!class_exists('SpeakershortCode')):
 			$col_A = array(1,2,3,4,6);
 
 			global $Speaker;
+
+			
 			$atts = shortcode_atts( array(
 					'speaker' => 4,
 					'col' => 3, 
@@ -43,21 +45,40 @@ if(!class_exists('SpeakershortCode')):
 			$paged = get_query_var('paged') ? get_query_var('paged') :1 ; 
 
 			$html = null;
+			if ($atts['orderby']= 'speaker'){
+					$atts['orderby'] = 'title';
+					$args = array(
+						'post_type' => 'speaker',
+						'post_status'=> 'publish',
+						'posts_per_page' => $atts['speaker'],
+						'orderby' => $atts['orderby'],
+						'order'   => $atts['order']
+					);
+			}elseif(($atts['orderby']= 'date') || ($atts['orderby']= 'menu_order')){
+					$args = array(
+						'post_type' => 'speaker',
+						'post_status'=> 'publish',
+						'posts_per_page' => $atts['speaker'],
+						'orderby' => $atts['orderby'],
+						'order'   => $atts['order']
+						);
+				}else{
 
-			$args = array(
-					'post_type' => 'speaker',
-					'post_status'=> 'publish',
-					'posts_per_page' => $atts['speaker'],
-					'no_found_rows' => $pagination,
-					'paged' => $paged,
-					'orderby'   => 'meta_value', 
-		            'meta_query' => array(
-		                                array('key' => $atts['orderby'],
-		                       )
-                            ),
-					'order'   => $atts['order']
-				);
-		
+					$args = array(
+							'post_type' => 'speaker',
+							'post_status'=> 'publish',
+							'posts_per_page' => $atts['speaker'],
+							'no_found_rows' => $pagination,
+							'paged' => $paged,
+							'orderby'   => 'meta_value', 
+				            'meta_query' => array(
+				                            array('key' => $atts['orderby'],
+				                       )
+		                            ),
+							'order'   => $atts['order']
+						);
+				}
+
 			$speakerQuery = new WP_Query( $args );
 
 			   if ( $speakerQuery->have_posts() ) {
@@ -66,7 +87,8 @@ if(!class_exists('SpeakershortCode')):
 					   $html .= '<div class="button-group sort-by-button-group">
 									<button data-sort-by="original-order" class="selected">Default</button>
 									<button data-sort-by="name">Name</button>
-									  <button data-sort-by="designation">Designation</button>
+									  <button data-sort-by="role">Job title</button>
+									  <button data-sort-by="organisation">Organisation</button>
 								  </div>';
 					   $html .= '<div class="tlp-team-isotope">';
 				   }
@@ -88,7 +110,7 @@ if(!class_exists('SpeakershortCode')):
 				      		$title = get_the_title();
 				      		$pLink = get_permalink();
 				      		$short_bio = get_post_meta( get_the_ID(), 'short_bio', true );
-				      		$designation = get_post_meta( get_the_ID(), 'designation', true );
+				      		$designation = get_post_meta( get_the_ID(), 'role', true );
 				      		$organisation = get_post_meta( get_the_ID(), 'organisation', true );
 				      		$speaker_event = get_post_meta( get_the_ID(), 'Speaker_event', true );
 				      		$speakerevent_link = get_post_meta( get_the_ID(), 'speakerevent_link', true );
@@ -231,7 +253,7 @@ if(!class_exists('SpeakershortCode')):
 			global $wpdb;
     		$mypostids = $wpdb->get_col("SELECT ID from $wpdb->posts where post_title LIKE '". $atts['speaker']."%' ");
 
-    		$eventids = $wpdb->get_results("SELECT post_id from $wpdb->postmeta where meta_value = ". $atts['event']."", ARRAY_A );
+    		$eventids = $wpdb->get_results("SELECT post_id from $wpdb->postmeta where meta_value = '". $atts['event']."'");
     		//$results = $wpdb->get_results( "select post_id, meta_key from $wpdb->postmeta where meta_value = 'this is my example value.'", ARRAY_A );
 
     		var_dump($atts['event']);
@@ -282,7 +304,7 @@ if(!class_exists('SpeakershortCode')):
 				      		$title = get_the_title();
 				      		$pLink = get_permalink();
 				      		$short_bio = get_post_meta( get_the_ID(), 'short_bio', true );
-				      		$designation = get_post_meta( get_the_ID(), 'designation', true );
+				      		$designation = get_post_meta( get_the_ID(), 'role', true );
 				      		$organisation = get_post_meta( get_the_ID(), 'organisation', true );
 				      		$speaker_event = get_post_meta( get_the_ID(), 'Speaker_event', true );
 				      		$speakerevent_link = get_post_meta( get_the_ID(), 'speakerevent_link', true );

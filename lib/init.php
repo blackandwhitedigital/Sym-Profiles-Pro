@@ -55,10 +55,6 @@ class Speaker extends Wp_License_Manager_Client
        
         //register_activation_hook(SPEAKER_PLUGIN_ACTIVE_FILE_NAME, array($this, 'activate'));
       
-    
-
-        
-
         //register_activation_hook(SPEAKER_PLUGIN_ACTIVE_FILE_NAME, array($this, 'initval'));
         
         register_deactivation_hook(SPEAKER_PLUGIN_ACTIVE_FILE_NAME, array($this, 'deactivate'));
@@ -81,37 +77,30 @@ class Speaker extends Wp_License_Manager_Client
     public function deactivate() {
         flush_rewrite_rules();
     }
-    
-   
-	// function TPLloadClass($dir){
- //        //echo $dirr;
- //        //exit;
- //        if (isset($dirr)){
- //            if (!file_exists($dir)) return;
-
- //            $classes = array();
-
- //            foreach (scandir($dir) as $item) {
- //                if( preg_match( "/.php$/i" , $item ) ) {
- //                    require_once( $dir . $item );
- //                    $className = str_replace( ".php", "", $item );
- //                    $classes[] = new $className;
- //                }
- //            }
-
- //            if($classes){
- //                foreach( $classes as $class )
- //                    $this->objects[] = $class;
- //                //unset($this->objects[3]);
-               
- //            }
- //        }
-   
-		
-	// }
-    
 
 
+    function verifyNonce( ){
+            global $Speaker;
+            $nonce      = @$_REQUEST['speaker_nonce'];
+            $nonceText  = $Speaker->nonceText();
+            if( !wp_verify_nonce( $nonce, $nonceText ) ) return false;
+            return true;
+        }
+
+        function nonceText(){
+            return "speaker_nonce";
+        }
+
+        function socialLink(){
+            return array(
+                    'facebook' => __('Facebook', SPEAKER_SLUG),
+                    'twitter'   => __('Twitter', SPEAKER_SLUG),
+                    'linkedin' =>  __('LinkedIn', SPEAKER_SLUG),
+                    'youtube' =>  __('Youtube', SPEAKER_SLUG),
+                    'vimeo' =>  __('Vimeo', SPEAKER_SLUG),
+                    'google-plus' =>  __('Google+', SPEAKER_SLUG)
+                );
+        }
 
 
     function loadWidget($dir){
@@ -225,7 +214,7 @@ function visualcomposer_compatibility() {
             "class" => "",
             "heading" => __( "Shortcode" ),
             "param_name" => "value",
-            "value" => '[speaker col="2" speaker="4" orderby="organisation" order="ASC" layout="1"]',
+            "value" => '[speaker col="2" speaker="4" orderby="speaker" order="ASC" layout="1"]',
             "description" => __( "Shortcode for Speaker Plugin")
          )
       )
@@ -257,7 +246,7 @@ function shortcode_button_script()
                 function callback()
                 {
                     var selected_text = getSel();
-                    QTags.insertContent('[speakers col="4" speaker="4" orderby="oraganisation" order="ASC" layout="1"]');
+                    QTags.insertContent('[speaker col="4" speaker="4" orderby="speaker" order="ASC" layout="1"]');
                 }
             </script>
         <?php

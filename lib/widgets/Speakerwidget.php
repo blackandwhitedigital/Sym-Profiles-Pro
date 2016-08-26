@@ -63,7 +63,7 @@ if(!class_exists('Speakerwidget')):
 
                     $ID=get_the_ID();
                     $bio = get_post_meta( get_the_ID(), 'short_bio', true );
-                    $designation = get_post_meta( get_the_ID(), ' designation', true );
+                    $designation = get_post_meta( get_the_ID(), ' role', true );
                     $organisation = get_post_meta( get_the_ID(), 'organisation', true);
                     $tel = get_post_meta( get_the_ID(), 'telephone', true );
                     $loc = get_post_meta( get_the_ID(), 'location', true );
@@ -177,7 +177,7 @@ if(!class_exists('Speakerwidget')):
           $post_info = get_post($id ); 
           $titles = $post_info->post_title;
             $organisations = get_post_meta( $id, 'organisation', true );
-          $designations = get_post_meta( $id, 'designation', true );
+          $designations = get_post_meta( $id, 'role', true );
           $short_bios = get_post_meta( $id, 'short_bio', true );
           $logos = get_post_meta( $id, 'meta-image', true );
 
@@ -187,7 +187,7 @@ if(!class_exists('Speakerwidget')):
           }else{
             $imgSrcc = $Speaker->assetsUrl .'images/demo.jpg';
           }
-            $speakerinfo= $titles."&".$imgSrcc."&".$organisations."&".$designations."&".$short_bios."&".$logos;
+            $speakerinfo= $titles."**".$imgSrcc."**".$organisations."**".$designations."**".$short_bios."**".$logos;
             echo $speakerinfo;
           die();
         }

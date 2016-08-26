@@ -94,10 +94,11 @@ if(!class_exists('SpeakerPostTypeAdmin')):
 			// echo "mangesh";
 
 		   $column_thumbnail = array( 'thumbnail' => __( 'Image', SPEAKER_SLUG ) );
-			$column_designation = array( 'designation' => __( 'Designation', SPEAKER_SLUG ) );
+			$column_designation = array( 'role' => __( 'Role', SPEAKER_SLUG ) );
 			$column_email = array( 'email' => __( 'Email', SPEAKER_SLUG ) );
 			$column_location = array( 'location' => __( 'Location', SPEAKER_SLUG ) );
-			return array_slice( $columns, 0, 2, true ) + $column_thumbnail + $column_designation + $column_email + $column_location + array_slice( $columns, 1, null, true );
+			$column_event = array( 'speakerevent_ID' => __( 'Event ID', SPEAKER_SLUG ) );
+			return array_slice( $columns, 0, 2, true ) + $column_thumbnail + $column_designation + $column_email + $column_location +$column_event+ array_slice( $columns, 1, null, true );
 		}
 
 		public function manage_speaker_columns( $column ) {
@@ -108,14 +109,17 @@ if(!class_exists('SpeakerPostTypeAdmin')):
 				case 'thumbnail':
 					echo get_the_post_thumbnail( get_the_ID(), array( 35, 35 ) );
 					break;
-				case 'designation':
-				    echo get_post_meta( get_the_ID() , 'designation' , true );
+				case 'role':
+				    echo get_post_meta( get_the_ID() , 'role' , true );
 				    break;
 				case 'email':
 				    echo get_post_meta( get_the_ID() , 'email' , true );
 				    break;
 				case 'location':
 				    echo get_post_meta( get_the_ID() , 'location' , true );
+				    break;
+				case 'speakerevent_ID':
+				    echo get_post_meta( get_the_ID() , 'speakerevent_ID' , true );
 				    break;
 				default:
 				    break;
@@ -124,9 +128,11 @@ if(!class_exists('SpeakerPostTypeAdmin')):
 
 		function speaker_column_sorts($columns){
 		    $custom = array(
-		        'designation'     => 'designation',
+		    	'thumbnail'  => 'thumbnail',
+		        'role'     => 'role',
 		        'email'         => 'email',
-		        'location'		=> 'location'
+		        'location'		=> 'location',
+		        'speakerevent_ID' => 'speakerevent_ID'
 		    );
 		    return wp_parse_args($custom, $columns);
 		}

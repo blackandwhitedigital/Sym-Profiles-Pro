@@ -26,7 +26,7 @@ while ( have_posts() ) : the_post();
 					$sLink = unserialize(get_post_meta( get_the_ID(), 'social' , true));
 					$organisation = get_post_meta( get_the_ID(), 'organisation', true );
 					$organisationlogo = get_post_meta( get_the_ID(), 'organisationlogo', true );
-					$designation = get_post_meta( get_the_ID(), 'designation', true );
+					$designation = get_post_meta( get_the_ID(), 'role', true );
 					$short_bio = get_post_meta( get_the_ID(), 'short_bio', true );
 					$url = get_post_meta( get_the_ID(), 'web_url', true );
 					$speaker_event = get_post_meta( get_the_ID(), 'Speaker_event', true );

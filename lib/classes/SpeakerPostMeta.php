@@ -75,10 +75,10 @@ if (!class_exists('SpeakerPostMeta')):
 
                 <div class="tlp-field-holder">
                     <div class="tplp-label">
-                        <label for="designation"><?php _e('Role', SPEAKER_SLUG); ?>:</label>
+                        <label for="role"><?php _e('Role', SPEAKER_SLUG); ?>:</label>
                     </div>
                     <div class="tlp-field">
-                        <input type="text" name="designation" class="tlpfield" value="<?php echo (@$meta['designation'][0] ? @$meta['designation'][0] : null) ?>">
+                        <input type="text" name="role" class="tlpfield" value="<?php echo (@$meta['role'][0] ? @$meta['role'][0] : null) ?>">
                         <span class="desc"></span>
                     </div>
                 </div>
@@ -191,8 +191,8 @@ if (!class_exists('SpeakerPostMeta')):
                 update_post_meta( $post_id,'organisation', sanitize_text_field( $_REQUEST['organisation'] ) );
             }
 
-            if ( isset( $_REQUEST['designation'] ) ) {
-                update_post_meta( $post_id, 'designation', sanitize_text_field( $_REQUEST['designation'] ) );
+            if ( isset( $_REQUEST['role'] ) ) {
+                update_post_meta( $post_id, 'role', sanitize_text_field( $_REQUEST['role'] ) );
             }
 
             if ( isset( $_REQUEST['web_url'] ) ) {
