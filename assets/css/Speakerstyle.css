@@ -273,7 +273,7 @@ p {
   line-height: 1.6842
 }
 .rightcontenttwo {
-position: absolute;
+/* position: absolute; */
 top: 0;
 right: 0;
 }
@@ -709,7 +709,14 @@ a.control_next {
 .readtext{
   font-size: 12px;
 }
-.readmore_text{display: }
+.readmore_text{
+   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: medium none;
+    display: inline-block;
+    position: static;
+    text-align: center;
+    width: 100%;
+}
 
 .readmore_text.text-color{
  font-size: 12px !important;
