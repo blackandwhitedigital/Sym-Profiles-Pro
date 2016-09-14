@@ -272,12 +272,19 @@ p {
  /* font-size: 1.9rem;*/
   line-height: 1.6842
 }
+<<<<<<< HEAD
 .layout2 .rightcontenttwo, .layout3 .rightcontenttwo {
     position: unset;
     width: 60px;
     margin: 5px 0px 5px 0px;
     padding: 0 !important;
     float: left;
+=======
+.rightcontenttwo {
+/* position: absolute; */
+top: 0;
+right: 0;
+>>>>>>> origin/master
 }
 .rightcontenttwo img {
 border-radius: 0px!important;
@@ -711,14 +718,22 @@ a.control_next {
 .readtext{
   font-size: 15px;
 }
+<<<<<<< HEAD
 /*.readmore_text{
+=======
+.readmore_text{
+>>>>>>> origin/master
    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
     border: medium none;
     display: inline-block;
     position: static;
     text-align: center;
     width: 100%;
+<<<<<<< HEAD
 }*/
+=======
+}
+>>>>>>> origin/master
 
 .readmore_text.text-color{
  font-size: 15px !important;
