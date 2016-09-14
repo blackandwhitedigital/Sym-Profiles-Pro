@@ -97,7 +97,7 @@ if(!class_exists('SpeakerPostTypeAdmin')):
 			$column_designation = array( 'role' => __( 'Role', SPEAKER_SLUG ) );
 			$column_email = array( 'email' => __( 'Email', SPEAKER_SLUG ) );
 			$column_location = array( 'location' => __( 'Location', SPEAKER_SLUG ) );
-			$column_event = array( 'speakerevent_ID' => __( 'Event ID', SPEAKER_SLUG ) );
+			$column_event = array( 'Event Id' => __( 'Event ID', SPEAKER_SLUG ) );
 			return array_slice( $columns, 0, 2, true ) + $column_thumbnail + $column_designation + $column_email + $column_location +$column_event+ array_slice( $columns, 1, null, true );
 		}
 
@@ -118,8 +118,8 @@ if(!class_exists('SpeakerPostTypeAdmin')):
 				case 'location':
 				    echo get_post_meta( get_the_ID() , 'location' , true );
 				    break;
-				case 'speakerevent_ID':
-				    echo get_post_meta( get_the_ID() , 'speakerevent_ID' , true );
+				case 'Event Id':
+				    echo get_post_meta( get_the_ID() , 'Event Id' , true );
 				    break;
 				default:
 				    break;
@@ -132,7 +132,7 @@ if(!class_exists('SpeakerPostTypeAdmin')):
 		        'role'     => 'role',
 		        'email'         => 'email',
 		        'location'		=> 'location',
-		        'speakerevent_ID' => 'speakerevent_ID'
+		        'Event Id' => 'Event Id'
 		    );
 		    return wp_parse_args($custom, $columns);
 		}

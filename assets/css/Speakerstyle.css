@@ -272,10 +272,12 @@ p {
  /* font-size: 1.9rem;*/
   line-height: 1.6842
 }
-.rightcontenttwo {
-position: absolute;
-top: 0;
-right: 0;
+.layout2 .rightcontenttwo, .layout3 .rightcontenttwo {
+    position: unset;
+    width: 60px;
+    margin: 5px 0px 5px 0px;
+    padding: 0 !important;
+    float: left;
 }
 .rightcontenttwo img {
 border-radius: 0px!important;
@@ -703,16 +705,23 @@ a.control_next {
 }
 .readmore_text,.readmore_text:hover,.readmore_text:visited{
   background:transparent;
-  color: #777;
-
+  color: #777!important;
+   text-transform: capitalize;
 }
 .readtext{
-  font-size: 12px;
+  font-size: 15px;
 }
-.readmore_text{display: }
+/*.readmore_text{
+   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: medium none;
+    display: inline-block;
+    position: static;
+    text-align: center;
+    width: 100%;
+}*/
 
 .readmore_text.text-color{
- font-size: 12px !important;
+ font-size: 15px !important;
  text-transform: capitalize;
 }
 .imagebordertwo{
@@ -936,3 +945,11 @@ div#popupContact {
 
   pre {
     border: none !important;}
+.imageborder {
+    width: 100%;
+}
+@media(max-width: 767px){
+  #widget_speaker-2 .profile-pic img{width: 100%;}
+  .rightcontenttwo img{float: none;}
+  .layout2 .rightcontenttwo, .layout3 .rightcontenttwo{float: none; margin:5px auto;}
+}

@@ -17,6 +17,8 @@ if( !class_exists( 'SpeakerfrontEnd' ) ) :
             $fih = (isset($settings['feature_imgh']) ? ($settings['feature_imgh'] ? $settings['feature_imgh'] : 'auto' ) : 'auto');
             $ib = (isset($settings['imgborder']) ? ($settings['imgborder'] ? $settings['imgborder'] : 'none' ) : 'none');
             $pc = (isset($settings['primary_color']) ? ($settings['primary_color'] ? $settings['primary_color'] : '#0367bf' ) : '#0367bf');
+            $fb = (isset($settings['full_biolink']) ? ($settings['full_biolink'] ? $settings['full_biolink'] : '#333333' ) : '#333333');
+            $btc = (isset($settings['full_biolinktext']) ? ($settings['full_biolinktext'] ? $settings['full_biolinktext'] : '#F00' ) : '#F00');
             /* title setting layout1*/
             $hc = (isset($settings['heading_color']) ? ($settings['heading_color'] ? $settings['heading_color'] : '#000' ) : '#000');
             $hs = (isset($settings['heading_size']) ? ($settings['heading_size'] ? $settings['heading_size'] : '15px' ) : '15px');
@@ -46,6 +48,7 @@ if( !class_exists( 'SpeakerfrontEnd' ) ) :
                 $odis = 'none';
             }
              /* description setting layout1*/
+
             $tc = (isset($settings['text_color']) ? ($settings['text_color'] ? $settings['text_color'] : '#000' ) : '#000');
             $ts = (isset($settings['text_size']) ? ($settings['text_size'] ? $settings['text_size'] : '15px' ) : '15px');
             $ta = (isset($settings['text_align']) ? ($settings['text_align'] ? $settings['text_align'] : 'none' ) : 'none');
@@ -53,7 +56,7 @@ if( !class_exists( 'SpeakerfrontEnd' ) ) :
             if ($td =='hide' && $td =='Hide'){
                 $tdis = 'none';
             }
-
+            
             $br = (isset($settings['border_radius']) ? ($settings['border_radius'] ? $settings['border_radius'] : '0%' ) : '0%');
             $gm = (isset($settings['grid']) ? ($settings['grid'] ? $settings['grid'] : '15px' ) : '15px');
         
@@ -109,6 +112,9 @@ if( !class_exists( 'SpeakerfrontEnd' ) ) :
             /* description setting layout1 */
             $html .= '.full_biolink{';
             $html .= 'background-color:'.$fb.'';
+            $html .= '}';
+            $html .= '.layout1 a.full_biolink, .layout2 a.full_biolink, .layout3 a.full_biolink, .tlp-team-isotope a.full_biolink{';
+            $html .= 'color:'.$btc.'';
             $html .= '}';
             $html .='.img-responsive {';
             $html .= 'border-radius: '.$br.'!important;';

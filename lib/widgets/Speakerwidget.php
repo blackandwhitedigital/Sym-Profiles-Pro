@@ -63,7 +63,7 @@ if(!class_exists('Speakerwidget')):
 
                     $ID=get_the_ID();
                     $bio = get_post_meta( get_the_ID(), 'short_bio', true );
-                    $designation = get_post_meta( get_the_ID(), ' role', true );
+                    $designation = get_post_meta( get_the_ID(), 'role', true );
                     $organisation = get_post_meta( get_the_ID(), 'organisation', true);
                     $tel = get_post_meta( get_the_ID(), 'telephone', true );
                     $loc = get_post_meta( get_the_ID(), 'location', true );
@@ -80,10 +80,10 @@ if(!class_exists('Speakerwidget')):
 
 
                         if($designation){
-                          $html .=",</span><span>$designation</span>";
+                          $html .="</span><span>$designation</span>";
                         }
                         if($organisation){
-                            $html .="<span>,$organisation</span>";
+                            $html .="<span>$organisation</span>";
                         }
                       $html .= "</a></h3>";
                       $html .= '<div class="short-bio">';

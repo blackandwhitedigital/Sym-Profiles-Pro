@@ -137,7 +137,7 @@ if (!class_exists('SpeakerPostMeta')):
                                 <?php endwhile;  ?>
                             </select>
                         <?php //endif;
-                        else: ?><input type="text" name="Event_name" class="tlpfield" value="<?php echo (@$meta['Event_name'][0] ? @$meta['Event_name'][0] : null) ?>">
+                        else: ?><input type="text" name="Event_namenew" class="tlpfield" value="<?php echo (@$meta['Event_namenew'][0] ? @$meta['Event_namenew'][0] : null) ?>">
                             
                         <?php  endif; ?>
                         <span class="desc"></span>
@@ -217,7 +217,10 @@ if (!class_exists('SpeakerPostMeta')):
                 update_post_meta( $post_id, 'Speaker_event', sanitize_text_field( $test[0] ) );
                 update_post_meta( $post_id, 'speakerevent_link', sanitize_text_field( $plink[1] ) );
                 update_post_meta( $post_id, 'speakerevent_date', sanitize_text_field( $date[2] ) );
-                update_post_meta( $post_id, 'speakerevent_ID', sanitize_text_field( $ID[3] ) );
+                update_post_meta( $post_id, 'Event Id', sanitize_text_field( $ID[3] ) );
+            }
+            if (isset($_REQUEST['Event_namenew'])){
+                update_post_meta( $post_id, 'Speaker_event', sanitize_text_field( $_REQUEST['Event_namenew'] ) );  
             }
 
             if( isset($_REQUEST['social'])){

@@ -38,52 +38,48 @@ if(!class_exists('SpeakershortCode')):
 			if(!in_array($atts['col'], $col_A)){
 				$atts['col'] = 3;
 			}
-			if(!in_array($atts['layout'], array(1,2,3,'isotope','Carousel'))){
+			if(!in_array($atts['layout'], array(1,2,3,'sortable','Carousel'))){
 				$atts['layout'] = 1;
 			}
 
 			$paged = get_query_var('paged') ? get_query_var('paged') :1 ; 
 
 			$html = null;
-			if ($atts['orderby']= 'speaker'){
-					$atts['orderby'] = 'title';
-					$args = array(
+			if ($atts['orderby']!= 'menu_order'){
+			$args = array(
+					'post_type' => 'speaker',
+					'post_status'=> 'publish',
+					'orderby' => 'meta_value',
+					'meta_query' => array(
+						array(
+							'key' => $atts['orderby'],
+						)
+						),
+					'posts_per_page' => $atts['speaker'],
+					//'orderby' => $atts['orderby'],
+					'order'   => $atts['order']
+				);
+			}else{
+				$atts['orderby'] = 'post_id';
+				$args = array(
 						'post_type' => 'speaker',
 						'post_status'=> 'publish',
 						'posts_per_page' => $atts['speaker'],
-						'orderby' => $atts['orderby'],
-						'order'   => $atts['order']
-					);
-			}elseif(($atts['orderby']= 'date') || ($atts['orderby']= 'menu_order')){
-					$args = array(
-						'post_type' => 'speaker',
-						'post_status'=> 'publish',
-						'posts_per_page' => $atts['speaker'],
-						'orderby' => $atts['orderby'],
+						'orderby' => 'meta_value',
+						'meta_query' => array(
+							array(
+								'key' => $atts['orderby'],
+							)
+						),
 						'order'   => $atts['order']
 						);
-				}else{
-
-					$args = array(
-							'post_type' => 'speaker',
-							'post_status'=> 'publish',
-							'posts_per_page' => $atts['speaker'],
-							'no_found_rows' => $pagination,
-							'paged' => $paged,
-							'orderby'   => 'meta_value', 
-				            'meta_query' => array(
-				                            array('key' => $atts['orderby'],
-				                       )
-		                            ),
-							'order'   => $atts['order']
-						);
-				}
+			} 
 
 			$speakerQuery = new WP_Query( $args );
 
 			   if ( $speakerQuery->have_posts() ) {
 			   		$html .= '<div class="container-fluid tlp-team">';
-				   if($atts['layout'] == 'isotope') {
+				   if($atts['layout'] == 'sortable') {
 					   $html .= '<div class="button-group sort-by-button-group">
 									<button data-sort-by="original-order" class="selected">Default</button>
 									<button data-sort-by="name">Name</button>
@@ -92,7 +88,7 @@ if(!class_exists('SpeakershortCode')):
 								  </div>';
 					   $html .= '<div class="tlp-team-isotope">';
 				   }
-				   if($atts['layout'] != 'isotope') {
+				   if($atts['layout'] != 'sortable') {
 					   $html .= '<div class="row layout' . $atts['layout'] . '">';
 				   }
 				   if($atts['layout'] == 'Carousel') {
@@ -148,7 +144,7 @@ if(!class_exists('SpeakershortCode')):
 
 				      		$sLink = unserialize(get_post_meta( get_the_ID(), 'social' , true));
 
-							if($atts['layout'] != 'isotope') {
+							if($atts['layout'] != 'sortable') {
 								$html .= "<div class='tlp-col-lg-{$grid} tlp-col-md-{$grid} tlp-col-sm-6 tlp-col-xs-12 tlp-equal-height'>";
 							}
 							switch ($atts['layout']) {
@@ -164,7 +160,7 @@ if(!class_exists('SpeakershortCode')):
 									$html .= $this->layoutThree($ID,$title, $pLink, $imgSrc, $designation,$organisation,$speaker_event,$speakerevent_link ,$logo,$short_bio, $sLink,$image_area,$content_area);
 								break;
 
-								case 'isotope':
+								case 'sortable':
 									$html .= $this->layoutIsotope($ID,$title, $pLink, $imgSrc, $designation,$organisation,$speaker_event,$speakerevent_link,$grid);
 								break;
 
@@ -177,14 +173,14 @@ if(!class_exists('SpeakershortCode')):
 									# code...
 								break;
 							}
-							if($atts['layout'] != 'isotope' ) {
+							if($atts['layout'] != 'sortable' ) {
 								$html .= '</div>'; //end col
 
 							}
 
 							
 				    endwhile;
-					if($atts['layout'] != 'isotope' ) {
+					if($atts['layout'] != 'sortable' ) {
 						$html .= '</div>'; // End row
 					}
 					if( $atts['layout'] == 'Carousel') {
@@ -196,7 +192,7 @@ if(!class_exists('SpeakershortCode')):
 				    wp_reset_postdata();
 				     // end row
 
-				   	if($atts['layout'] == 'isotope' && $atts['layout'] == 'Carousel') {
+				   	if($atts['layout'] == 'sortable' && $atts['layout'] == 'Carousel') {
 					   	$html .= '</div>'; // end speaker-isotope
 				   	}
 				   	$html .= '</div>'; // end container
@@ -236,13 +232,13 @@ if(!class_exists('SpeakershortCode')):
 					'order'	=> 'DESC',
 					'layout'	=> 1,
 					'pagination' => off,
-				), $atts, 'speaker' );
+				), $atts, 'speakerinfo' );
 			$pagination = $atts['pagination'] == 'on' ? true : false;
 
 			if(!in_array($atts['col'], $col_A)){
 				$atts['col'] = 3;
 			}
-			if(!in_array($atts['layout'], array(1,2,3,'isotope'))){
+			if(!in_array($atts['layout'], array(1,2,3,'sortable'))){
 				$atts['layout'] = 1;
 			}
 
@@ -256,8 +252,8 @@ if(!class_exists('SpeakershortCode')):
     		$eventids = $wpdb->get_results("SELECT post_id from $wpdb->postmeta where meta_value = '". $atts['event']."'");
     		//$results = $wpdb->get_results( "select post_id, meta_key from $wpdb->postmeta where meta_value = 'this is my example value.'", ARRAY_A );
 
-    		var_dump($atts['event']);
-    		var_dump($eventids);
+    		/*var_dump($atts['event']);
+    		var_dump($eventids);*/
     		$eventinfo = array();
     		
     		foreach ($eventids as $key => $value) {
@@ -285,11 +281,11 @@ if(!class_exists('SpeakershortCode')):
 
 			   if ( $speakerQuery->have_posts() ) {
 			   		$html .= '<div class="container-fluid tlp-team">';
-				    if($atts['layout'] == 'isotope') {
+				    if($atts['layout'] == 'sortable') {
 					    
 					    $html .= '<div class="tlp-team-isotope">';
 				    }
-				    if($atts['layout'] != 'isotope') {
+				    if($atts['layout'] != 'sortable') {
 					    $html .= '<div class="row layout' . $atts['layout'] . '">';
 				    }
 				    if (!empty($_POST['id'])){
@@ -342,7 +338,7 @@ if(!class_exists('SpeakershortCode')):
 
 				      		$sLink = unserialize(get_post_meta( get_the_ID(), 'social' , true));
 
-							if($atts['layout'] != 'isotope') {
+							if($atts['layout'] != 'sortable') {
 								$html .= "<div class='tlp-col-lg-{$grid} tlp-col-md-{$grid} tlp-col-sm-6 tlp-col-xs-12 tlp-equal-height'>";
 							}
 							switch ($atts['layout']) {
@@ -358,7 +354,7 @@ if(!class_exists('SpeakershortCode')):
 									$html .= $this->layoutThree($ID,$title, $pLink, $imgSrc, $designation,$organisation,$speaker_event,$speakerevent_link,$logo ,$short_bio, $sLink,$image_area,$content_area);
 								break;
 
-								case 'isotope':
+								case 'sortable':
 									$html .= $this->layoutIsotope($ID,$title, $pLink, $imgSrc, $designation,$organisation,$speaker_event,$speakerevent_link,$grid);
 								break;
 
@@ -366,18 +362,18 @@ if(!class_exists('SpeakershortCode')):
 									# code...
 								break;
 							}
-							if($atts['layout'] != 'isotope') {
+							if($atts['layout'] != 'sortable') {
 								$html .= '</div>'; //end col
 
 							}
 
 				    endwhile;
-					if($atts['layout'] != 'isotope') {
+					if($atts['layout'] != 'sortable') {
 						$html .= '</div>'; // End row
 					}
 				    wp_reset_postdata();
 				    // end row
-				    if($atts['layout'] == 'isotope') {
+				    if($atts['layout'] == 'sortable') {
 					   $html .= '</div>'; // end speaker-isotope
 				    }
 				    $html .= '</div>'; // end container
@@ -423,11 +419,11 @@ if(!class_exists('SpeakershortCode')):
 	                $html .= '</div></div>';
 	                 	$html .= '<div class="short-bio text-color">';
 	    				if($short_bio){
-						   	$shortexcerpt = wp_trim_words( $short_bio, $num_words = 20, $more = '<button  class="readmore_text text-color" onclick="fadeintext('.$ID.')">&nbsp...read more</button>' );
-						   	$html .= '<p class="setting_desc" id="shortdesc'.$ID.'">' . $shortexcerpt . '</p>';
+						   	$shortexcerpt = wp_trim_words( $short_bio, $num_words = 20, $more = '<a  class="readmore_text text-color" onclick="fadeintext('.$ID.')">&nbsp...read more</a>' );
+						   	$html .= '<p class="setting_desc" id="shortdescone'.$ID.'">' . $shortexcerpt . '</p>';
 						   	
 						   	}
-						   	$html .= '<p class="setting_desc desc" id="fulldesc'.$ID.'"><a class="readmore_text" onclick="fadeouttext('.$ID.')">' . $short_bio . '</a></p>';
+						   	$html .= '<p class="setting_desc desc" id="fulldescone'.$ID.'"><a class="readmore_text" onclick="fadeouttext('.$ID.')">' . $short_bio . '</a></p>';
 					if (apply_filters('the_content',get_the_content())){
 						   	$html .= '<p class="full-bio"><a href="'. $pLink.'" class="full_biolink">Click for full biography</a></p>';
 					}
@@ -505,11 +501,11 @@ if(!class_exists('SpeakershortCode')):
 					$html .='<div class="short-bio text-color">';
 						if($short_bio){
 						   
-						   	$shortexcerpt = wp_trim_words( $short_bio, $num_words = 20, $more = '<button  class="readmore_text readtext" onclick="fadeintext('.$ID.')">&nbsp...read more</button>' );
-						   	$html .= '<p class="setting_desc" id="shortdesc'.$ID.'">' . $shortexcerpt . '</p>';
+						   	$shortexcerpt = wp_trim_words( $short_bio, $num_words = 20, $more = '<a  class="readmore_text readtext" onclick="fadeintwotext('.$ID.')">&nbsp...read more</a>' );
+						   	$html .= '<p class="setting_desc" id="shortdesctwo'.$ID.'">' . $shortexcerpt . '</p>';
 						   	
 						   	}
-						   	$html .= '<p class="setting_desc desc" id="fulldesc'.$ID.'"><a class="readmore_text" onclick="fadeouttext('.$ID.')">' . $short_bio . '</a></p>';
+						   	$html .= '<p class="setting_desc desc" id="fulldesctwo'.$ID.'"><a class="readmore_text" onclick="fadeouttwotext('.$ID.')">' . $short_bio . '</a></p>';
 						   	if (apply_filters('the_content',get_the_content())){
 						   	$html .= '<p class="full-bio"><a href="'. $pLink.'" class="full_biolink">Click for full biography</a></p>';
 						}
@@ -566,7 +562,7 @@ if(!class_exists('SpeakershortCode')):
 						if($speaker_event){
 							$html .= '<div class="designation sett-event"><a class="setting-org" href="' . $speakerevent_link . '" class ="text-color">'.$speaker_event.'</a></div>';
 						}
-					$html .='</span><span class="rightcontenttwo '. $image_area.'">';
+					$html .='</span><span class="rightcontenttwo '. $logoarea.'">';
 					if($logo){
 		                $html .= '<img src= '.$logo.' />';
 		            }
@@ -574,11 +570,11 @@ if(!class_exists('SpeakershortCode')):
 					$html .='<div class="short-bio text-color">';
 						if($short_bio){
 						   
-						   	$shortexcerpt = wp_trim_words( $short_bio, $num_words = 20, $more = '<button  class="readmore_text readtext" onclick="fadeintext('.$ID.')">&nbsp...read more</button>' );
-						   	$html .= '<p class="setting_desc" id="shortdesc'.$ID.'">' . $shortexcerpt . '</p>';
+						   	$shortexcerpt = wp_trim_words( $short_bio, $num_words = 20, $more = '<a  class="readmore_text readtext" onclick="fadeinthreetext('.$ID.')">&nbsp...read more</a>' );
+						   	$html .= '<p class="setting_desc" id="shortdescthree'.$ID.'">' . $shortexcerpt . '</p>';
 						   	
 						   	}
-						   	$html .= '<p class="setting_desc desc" id="fulldesc'.$ID.'"><a class="readmore_text" onclick="fadeouttext('.$ID.')">' . $short_bio . '</a></p>';
+						   	$html .= '<p class="setting_desc desc" id="fulldescthree'.$ID.'"><a class="readmore_text" onclick="fadeoutthreetext('.$ID.')">' . $short_bio . '</a></p>';
 						   	if (apply_filters('the_content',get_the_content())){
 						   	$html .= '<p class="full-bio"><a href="'. $pLink.'" class="full_biolink">Click for full biography</a></p>';
 						}

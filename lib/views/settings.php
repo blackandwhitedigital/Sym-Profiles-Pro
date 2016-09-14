@@ -52,6 +52,8 @@
                         
                     </tr>
 
+                    
+
 
                     <tr>
                         <th scope="row"><label for="slug"><?php _e('Slug',SPEAKER_SLUG);?></label></th>
@@ -62,9 +64,10 @@
                     </tr>
 
                     <tr>
-                        <th scope="row"><label for="full_biolink"><?php _e('Full Bio Button',SPEAKER_SLUG);?></label></th>
+                        <th scope="row"><label for="full_biolink"><?php _e('Full Bio Button/Text',SPEAKER_SLUG);?></label></th>
                         <td>
-                            <input name="full_biolink" type="text" value="<?php echo (isset($settings['full_biolink']) ? ($settings['full_biolink'] ? intval($settings['full_biolink']) : '#333333' ) : '#333333'); ?>"  class="tlp-color"> 
+                            <input name="full_biolink" type="text" value="<?php echo (isset($settings['full_biolink']) ? ($settings['full_biolink'] ? intval($settings['full_biolink']) : '#333333' ) : '#333333'); ?>"  class="tlp-color">
+                            <input name="full_biolinktext" type="text" value="<?php echo (isset($settings['full_biolinktext']) ? ($settings['full_biolinktext'] ? intval($settings['full_biolinktext']) : '#F00' ) : '#F00'); ?>"  class="tlp-color">  
                         </td>
                         
                     </tr>
@@ -200,55 +203,6 @@
 
             <div id="response" class="updated"></div>
         </div>
-    </div>
-
-    <div class="tlp-help">
-        <p style="font-weight: bold"><?php _e('Short Code', SPEAKER_SLUG );?> :</p>
-        <p>[speaker col="2" speaker="4" orderby="organisation" order="ASC" layout="1"]</p><br>
-        <p><?php _e('col = The number of column you want to create (1,2,3,4)', SPEAKER_SLUG );?></p>
-        <p><?php _e('speaker = The number of the speaker, you want to display per page', SPEAKER_SLUG );?></p>
-        <p><?php _e('orderby = Orderby (organisation , designation, Speaker_event, Speakerevent_date)', SPEAKER_SLUG );?></p>
-        <p><?php _e('ordr = ASC, DESC', SPEAKER_SLUG );?></p>
-        <p><?php _e('layout = 1,2,3,isotope,Carousel', SPEAKER_SLUG );?></p></br></br>
-
-        <h3>For Specific Speaker or Event:</h3>
-        <p>[speakerinfo col="2" speaker="Thomos" orderby="title" order="ASC" layout="1"]</p><br>
-        <p><?php _e('col = The number of column you want to create (1,2,3,4)', SPEAKER_SLUG );?></p>
-        <p><?php _e('speaker = The name of the speaker, you want to display | event= All speakers from specific event', SPEAKER_SLUG );?></p>
-        <p><?php _e('layout = 1,2,3,isotope', SPEAKER_SLUG );?></p>
-    </div>
-
-    <div class="tlp-help">
-        <p style="font-weight: bold"><?php _e('Getting Started:', AGENDA_SLUG); ?> :</p><br>
-        <h3>Adding Speakers</h3>
-        <p>Click the “Add Speaker” link in the left hand menu.  Add information and save.</p><br>
-        <h3>Displaying your Speakers in a Post of Page</h3>
-        <p>To display your speakers you will need to add a ‘shortcode’ to the page or post in the location where you want the speakers to show.  This short code will look something like this:</p>
-        <code>[speaker]</code>
-        <p>This will give you a basic display of all the speakers you have created.  However, you can refine the shortcode using some additional options to control the final display.  This is what your shortcode may look like once you have added these settings:</p>
-        <code>[speaker col=”2” speaker=”4” orderby=”title” order=”ASC” layout=”1”]</code>
-        <p>The shortcode contains a number of optional elements that allow you to control the appearance of the speakers section.  These options are:</p>
-        <ul>
-        <li>col = The number of columns you want to create (eg. 1, 2, 3, 4)</li>
-        <li>speaker = The number of the speakers, you want to display (eg. 1, 5, 13 etc)</li>
-        <li>orderby = Orderby (title , date, menu_order)</li>
-        <li>ordr = ASC, DESC </li>
-        <li>layout = the layout template you want to use.  By default you can choose from  “1”, “2”, “3” and “isotope” (1 is a portrait type display with pictures at the top, 2 is a landscape display with picture in a circle, 3 is a landscape display with square picture, isotope is displays pictures only with mouse over text appearing but the order can be sorted by options selected at the top of the page).  Options 2 and 3 also allow you to displat logos in addtion to the speaker’s picture.</li> </ul><br>
-
-        <h3>Changing colours, fonts, etc. in your design template</h3>
-        <p>On the ‘Settings’ tab in the left hand menu you can change the appearance of many elements of the speaker profiles.</p>  
-        <ul>
-        <li>Primary Colour:  Select from pallatte or imput a hex value.</li>
-        <li>Square/Rounded Image:  Set a percentage eg 10% </li>
-        <li>Image size: Imput pixel size required eg: 200 - note that in some templates the number of columns required may mean this setting is disregarded.</li> 
-        <li>Image boder:  You can set the line type, pixel width and colour - eg “Solid 1pt grey” [what are the options?] </li>
-        <li>Text options:  Select a colour, Size (eg. “12pt”) and alignment (eg. “left”, “right”, “center”, “none”)</li>
-        <li>Show or hide text: toggle between the “show” and “hide” options for each element.</li>
-        <li>Slug: speaker</li>
-        <li>Link to Detail Page:  Enable links to full page biographical details from some templates </li>
-        <li>Custom CSS: Add CSS part with classname you want.</li>
-        <li>Save changes:  Don’t forget!</li>
-        </ul>
     </div>
 
 </div>
