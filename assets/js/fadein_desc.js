@@ -1,11 +1,12 @@
 function fadeintext(ID){
- 	//alert('hiee');
+    //alert('hiee');
+    console.log(ID);
         $("#fulldescone"+ID).fadeIn();
         $("#shortdescone"+ID).hide();
     };
 function fadeouttext(ID){
-	
-	$("#fulldescone"+ID).hide();
+    
+    $("#fulldescone"+ID).hide();
     $("#shortdescone"+ID).show();
     
 }
@@ -14,7 +15,7 @@ function fadeintwotext(ID){
         $("#shortdesctwo"+ID).hide();
     };
 function fadeouttwotext(ID){
-	
+    
     $("#fulldesctwo"+ID).hide();
     $("#shortdesctwo"+ID).show();
     
@@ -24,7 +25,7 @@ function fadeinthreetext(ID){
         $("#shortdescthree"+ID).hide();
     };
 function fadeoutthreetext(ID){
-	
+    
     $("#fulldescthree"+ID).hide();
     $("#shortdescthree"+ID).show();
     

@@ -9,6 +9,9 @@ if(!class_exists('SpeakerPostTypeRegistrations')):
 		
 			// Add the team post type and taxonomies
 			add_action( 'init', array( $this, 'register' ) );
+			add_action( 'init', array( $this, 'agenda_listing_taxonomy'));
+			add_action( 'init', array( $this, 'agenda_listing_categories'));
+			
 		}
 		/**
 		 * Initiate registrations of post type and taxonomies.
@@ -71,6 +74,68 @@ if(!class_exists('SpeakerPostTypeRegistrations')):
 			register_post_type( $Speaker->post_type, $team_args );
 			flush_rewrite_rules();
 	
+		}
+
+		function agenda_listing_taxonomy() {
+			global $Speaker;
+		    register_taxonomy(
+		        'agenda_cat',  //The name of the taxonomy. Name should be in slug form (must not contain capital letters or spaces).
+		        'speaker',  //post type name
+		        array(
+		        'public'                => true,
+		        'hierarchical'          => true,
+		        'label'                 => 'Event',  //Display name
+		        'query_var'             => true,
+		        'show_admin_column' => False,
+		        'rewrite'               => array(
+		            'slug'              => $Speaker->post_type_slug, // This controls the base slug that will display before each term
+		            'with_front'        => false // Don't display the category base before
+		            )
+		        )
+		    );
+
+		}
+
+
+		function agenda_listing_categories() {
+			global $Speaker;
+
+			if ( (is_plugin_active( 'Sym-Agenda-Pro-master/Agenda.php' ) ) ||  (is_plugin_active( 'Sym-Agenda-master/Agenda.php' ) ) ){
+		
+                    $agenda= new WP_Query( array( 'post_type' => 'agenda','post_status' => 'publish') );
+                    
+                    if ($agenda->have_posts()) { 
+
+                    	while ($agenda->have_posts()) : $agenda->the_post();
+                    	
+                    	$term = get_the_title(); 
+                    	
+                    	if (strlen($term)==0){
+                    	
+						}else{
+							$cid=wp_insert_term(
+							
+							  $term,
+							
+							    'agenda_cat',
+							
+							    array(
+							
+							      'description' => $term,
+							
+							      'slug'    => $term
+							
+							    )
+							
+							  );
+							
+							}
+						endwhile;
+					
+					}
+					
+			}
+
 		}
 	}
 

@@ -100,7 +100,7 @@ if( !class_exists( 'SpeakerfrontEnd' ) ) :
             $html .= '}';
             /* organisation setting layout1 */
             /* description setting layout1*/
-            $html .='.setting_desc{';
+            $html .='.setting_desc, .setting_desc a{';
             $html .= 'color: '.$tc.'!important;';
             $html .= 'font-size: '.$ts.'!important;';
             $html .= 'text-align: '.$ta.'!important;';

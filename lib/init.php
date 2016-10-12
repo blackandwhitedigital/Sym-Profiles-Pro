@@ -53,18 +53,33 @@ class Speaker extends Wp_License_Manager_Client
         );
 
        
-        //register_activation_hook(SPEAKER_PLUGIN_ACTIVE_FILE_NAME, array($this, 'activate'));
+        register_activation_hook(SPEAKER_PLUGIN_ACTIVE_FILE_NAME, array($this, 'activate'));
       
         //register_activation_hook(SPEAKER_PLUGIN_ACTIVE_FILE_NAME, array($this, 'initval'));
-        
+        //register_activation_hook(SPEAKER_PLUGIN_ACTIVE_FILE_NAME, array($this,'cyb_activation'));
         register_deactivation_hook(SPEAKER_PLUGIN_ACTIVE_FILE_NAME, array($this, 'deactivate'));
-
-        
+        //add_action('activated_plugin',array($this,'save_error'));
         /* $license_manager = new Wp_License_Manager_Client(); */
 
 
 	}
 
+    /*public function cyb_activation()
+    {
+        // Don't forget to exit() because wp_redirect doesn't exit automatically
+        wp_redirect( admin_url( 'edit.php?post_type=speaker&page=gettingstarted' ) ) ;
+        flush_rewrite_rules();
+        $this->insertDefaultData();
+
+    }*/
+
+    /*public function activate() {
+
+        flush_rewrite_rules();
+        $this->insertDefaultData();
+
+    }
+    */
     public function initval($product_id,$product_name,$text_domain,$api_url){
       parent::__construct($product_id,$product_name,$text_domain,$api_url);  
     }
@@ -257,7 +272,3 @@ function shortcode_button_script()
 
 /*$newtest->__construct();*/
 add_action("admin_print_footer_scripts", "shortcode_button_script");
-
-
-
-     

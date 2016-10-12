@@ -119,7 +119,8 @@ if(!class_exists('SpeakerPostTypeAdmin')):
 				    echo get_post_meta( get_the_ID() , 'location' , true );
 				    break;
 				case 'Event Id':
-				    echo get_post_meta( get_the_ID() , 'Event Id' , true );
+				     $cat= get_the_terms(get_the_ID(), 'agenda_cat');
+				     echo $cat[0]->term_id;
 				    break;
 				default:
 				    break;
@@ -132,7 +133,8 @@ if(!class_exists('SpeakerPostTypeAdmin')):
 		        'role'     => 'role',
 		        'email'         => 'email',
 		        'location'		=> 'location',
-		        'Event Id' => 'Event Id'
+		        'Event Id' => 'Event Id',
+		        
 		    );
 		    return wp_parse_args($custom, $columns);
 		}

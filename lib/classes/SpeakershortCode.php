@@ -26,6 +26,7 @@ if(!class_exists('SpeakershortCode')):
 			
 			$atts = shortcode_atts( array(
 					'speaker' => 4,
+					'event' => '',
 					'col' => 3, 
 		            'orderby'   => 'organisation',
 					'order'	=> 'DESC',
@@ -35,6 +36,8 @@ if(!class_exists('SpeakershortCode')):
 
 			$pagination = $atts['pagination'] == 'on' ? true : false;
 
+		    
+			
 			if(!in_array($atts['col'], $col_A)){
 				$atts['col'] = 3;
 			}
@@ -56,6 +59,13 @@ if(!class_exists('SpeakershortCode')):
 						)
 						),
 					'posts_per_page' => $atts['speaker'],
+					'tax_query' => array(
+						array(
+					            'taxonomy' => 'agenda_cat',
+					            'terms' =>  $atts['event'],
+					            'include_children' => true // Remove if you need posts from term 7 child terms
+					        )
+						),
 					//'orderby' => $atts['orderby'],
 					'order'   => $atts['order']
 				);
@@ -70,6 +80,13 @@ if(!class_exists('SpeakershortCode')):
 							array(
 								'key' => $atts['orderby'],
 							)
+						),
+						'tax_query' => array(
+						array(
+					            'taxonomy' => 'agenda_cat',
+					            'terms' =>  $atts['event'],
+					            'include_children' => true // Remove if you need posts from term 7 child terms
+					        )
 						),
 						'order'   => $atts['order']
 						);
@@ -145,7 +162,7 @@ if(!class_exists('SpeakershortCode')):
 				      		$sLink = unserialize(get_post_meta( get_the_ID(), 'social' , true));
 
 							if($atts['layout'] != 'sortable') {
-								$html .= "<div class='tlp-col-lg-{$grid} tlp-col-md-{$grid} tlp-col-sm-6 tlp-col-xs-12 tlp-equal-height'>";
+								$html .= "<div class='tlp-col-lg-{$grid} tlp-col-md-{$grid} tlp-col-sm-{$grid} tlp-col-xs-{$grid} tlp-equal-height'>";
 							}
 							switch ($atts['layout']) {
 								case 1:
@@ -339,7 +356,7 @@ if(!class_exists('SpeakershortCode')):
 				      		$sLink = unserialize(get_post_meta( get_the_ID(), 'social' , true));
 
 							if($atts['layout'] != 'sortable') {
-								$html .= "<div class='tlp-col-lg-{$grid} tlp-col-md-{$grid} tlp-col-sm-6 tlp-col-xs-12 tlp-equal-height'>";
+								$html .= "<div class='tlp-col-lg-{$grid} tlp-col-md-{$grid} tlp-col-sm-{$grid} tlp-col-xs-{$grid} tlp-equal-height'>";
 							}
 							switch ($atts['layout']) {
 								case 1:
@@ -423,7 +440,7 @@ if(!class_exists('SpeakershortCode')):
 						   	$html .= '<p class="setting_desc" id="shortdescone'.$ID.'">' . $shortexcerpt . '</p>';
 						   	
 						   	}
-						   	$html .= '<p class="setting_desc desc" id="fulldescone'.$ID.'"><a class="readmore_text" onclick="fadeouttext('.$ID.')">' . $short_bio . '</a></p>';
+						   	$html .= '<p class="setting_desc desc " style="display:none" id="fulldescone'.$ID.'"><a class="readmore_text" onclick="fadeouttext('.$ID.')">' . $short_bio . '</a></p>';
 					if (apply_filters('the_content',get_the_content())){
 						   	$html .= '<p class="full-bio"><a href="'. $pLink.'" class="full_biolink">Click for full biography</a></p>';
 					}
@@ -505,7 +522,7 @@ if(!class_exists('SpeakershortCode')):
 						   	$html .= '<p class="setting_desc" id="shortdesctwo'.$ID.'">' . $shortexcerpt . '</p>';
 						   	
 						   	}
-						   	$html .= '<p class="setting_desc desc" id="fulldesctwo'.$ID.'"><a class="readmore_text" onclick="fadeouttwotext('.$ID.')">' . $short_bio . '</a></p>';
+						   	$html .= '<p class="setting_desc desc" style="display:none" id="fulldesctwo'.$ID.'"><a class="readmore_text" onclick="fadeouttwotext('.$ID.')">' . $short_bio . '</a></p>';
 						   	if (apply_filters('the_content',get_the_content())){
 						   	$html .= '<p class="full-bio"><a href="'. $pLink.'" class="full_biolink">Click for full biography</a></p>';
 						}
@@ -574,7 +591,7 @@ if(!class_exists('SpeakershortCode')):
 						   	$html .= '<p class="setting_desc" id="shortdescthree'.$ID.'">' . $shortexcerpt . '</p>';
 						   	
 						   	}
-						   	$html .= '<p class="setting_desc desc" id="fulldescthree'.$ID.'"><a class="readmore_text" onclick="fadeoutthreetext('.$ID.')">' . $short_bio . '</a></p>';
+						   	$html .= '<p class="setting_desc desc" style="display:none" id="fulldescthree'.$ID.'"><a class="readmore_text" onclick="fadeoutthreetext('.$ID.')">' . $short_bio . '</a></p>';
 						   	if (apply_filters('the_content',get_the_content())){
 						   	$html .= '<p class="full-bio"><a href="'. $pLink.'" class="full_biolink">Click for full biography</a></p>';
 						}

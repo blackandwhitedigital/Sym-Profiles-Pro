@@ -9,7 +9,7 @@ while ( have_posts() ) : the_post();
 		<article id="post-<?php the_ID(); ?>" <?php post_class('tlp-member-article'); ?>>
 		<div class="container-fluid tlp-team">
 			<div class="tlp-col-lg-2 tlp-col-md-2 tlp-col-sm-2 tlp-col-xs-12 profile-cover ">
-			<div class="profile-pic"><div class="imageborder">
+			<div class="profile-pic"><div class="">
 				<?php
 				if(has_post_thumbnail()){
 					echo get_the_post_thumbnail( get_the_ID(), 'large' );
