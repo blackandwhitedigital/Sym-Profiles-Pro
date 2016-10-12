@@ -48,8 +48,8 @@ if(!class_exists('SpeakershortCode')):
 			$paged = get_query_var('paged') ? get_query_var('paged') :1 ; 
 
 			$html = null;
-			if ($atts['orderby']!= 'menu_order'){
-			$args = array(
+			if (!empty($atts['event'])){
+				$args = array(
 					'post_type' => 'speaker',
 					'post_status'=> 'publish',
 					'orderby' => 'meta_value',
@@ -68,29 +68,39 @@ if(!class_exists('SpeakershortCode')):
 						),
 					//'orderby' => $atts['orderby'],
 					'order'   => $atts['order']
-				);
+				);	
 			}else{
-				$atts['orderby'] = 'post_id';
+				if ($atts['orderby']!= 'menu_order'){
 				$args = array(
 						'post_type' => 'speaker',
 						'post_status'=> 'publish',
-						'posts_per_page' => $atts['speaker'],
 						'orderby' => 'meta_value',
 						'meta_query' => array(
 							array(
 								'key' => $atts['orderby'],
 							)
-						),
-						'tax_query' => array(
-						array(
-					            'taxonomy' => 'agenda_cat',
-					            'terms' =>  $atts['event'],
-					            'include_children' => true // Remove if you need posts from term 7 child terms
-					        )
-						),
+							),
+						'posts_per_page' => $atts['speaker'],
+						//'orderby' => $atts['orderby'],
 						'order'   => $atts['order']
-						);
-			} 
+					);
+				}else{
+					$atts['orderby'] = 'post_id';
+					$args = array(
+							'post_type' => 'speaker',
+							'post_status'=> 'publish',
+							'posts_per_page' => $atts['speaker'],
+							'orderby' => 'meta_value',
+							'meta_query' => array(
+								array(
+									'key' => $atts['orderby'],
+								)
+							),
+							'order'   => $atts['order']
+							);
+				} 
+			}
+			
 
 			$speakerQuery = new WP_Query( $args );
 
