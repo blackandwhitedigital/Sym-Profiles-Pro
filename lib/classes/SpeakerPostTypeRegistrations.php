@@ -99,7 +99,7 @@ if(!class_exists('SpeakerPostTypeRegistrations')):
 
 		function agenda_listing_categories() {
 			global $Speaker;
-
+			include_once(ABSPATH.'wp-admin/includes/plugin.php');
 			if ( (is_plugin_active( 'Sym-Agenda-Pro-master/Agenda.php' ) ) ||  (is_plugin_active( 'Sym-Agenda-master/Agenda.php' ) ) ){
 		
                     $agenda= new WP_Query( array( 'post_type' => 'agenda','post_status' => 'publish') );
