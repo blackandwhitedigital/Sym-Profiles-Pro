@@ -38,7 +38,14 @@ if (!class_exists('Speakerorganisation')) {
                         <label for="organisation_logo"><?php _e('Organisation logo', SPEAKER_SLUG); ?>:</label>
                     </div>
                     <div class="tlp-field orgfield">
-                        <input type="text" name="meta-image" id="meta-image" value="<?php if ( isset ( $prfx_stored_meta['meta-image'] ) ) echo $prfx_stored_meta['meta-image'][0]; ?>" />
+                    <?php if($meta['meta-image'][0]==" ")
+                    {
+                        echo "No image";
+                    }
+                    else {
+                        echo '<img src="'.$meta['meta-image'][0].'" class="attachment-post-thumbnail size-post-thumbnail inside img" style="width: 100%;">';
+                    }?>
+                        <br/><input type="text" name="meta-image" id="meta-image" value="<?php echo (@$meta['meta-image'][0] ? @$meta['meta-image'][0] : null) ?>" />
                         <input type="button" id="meta-image-button" class="button orgbutton" value="<?php _e( 'Upload an Image', 'prfx-textdomain' )?>" />
 
                         <span class="desc"></span>
